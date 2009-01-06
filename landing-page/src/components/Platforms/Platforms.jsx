@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import logo from "../../assets/ctrlV_logo.png";
-import { IoLogoAndroid } from "react-icons/io";
+import { motion } from "framer-motion";
 import { BsApple, BsWindows } from "react-icons/bs";
 import { VscTerminalLinux } from "react-icons/vsc";
 import MacOs from "../../assets/MacOs";
@@ -73,37 +73,44 @@ function Platforms() {
       logo: <SiFigma />,
     },
   ];
+  const elements = useRef([]);
   useEffect(() => {
-    document.querySelectorAll(".circular > *").forEach((el, i) => {
-      //  var letter = text[i];
-      // var span = document.createElement('span');
-      // var node = document.createTextNode(el);
-      var r = (360 / 11) * i;
-      var x = (Math.PI / 11).toFixed(0) * i;
-      var y = (Math.PI / 11).toFixed(0) * i;
-      // span.appendChild(node);
-      el.style.webkitTransform =
-        "rotateZ(" + r + "deg) translate3d(" + x + "px," + y + "px,0)";
-      el.style.transform =
-        "rotateZ(" + r + "deg) translate3d(" + x + "px," + y + "px,0)";
-      // element.appendChild(span);
-    });
-  }, []);
+    if (elements.current) {
+      elements.current.forEach((el, i) => {
+        var r = (360 / elements.current.length) * i;
+        var x = (Math.PI / elements.current.length).toFixed(0) * i;
+        var y = (Math.PI / elements.current.length).toFixed(0) * i;
+
+        el.style.webkitTransform =
+          "rotateZ(" + r + "deg) translate3d(" + x + "px," + y + "px,0)";
+        el.style.transform =
+          "rotateZ(" + r + "deg) translate3d(" + x + "px," + y + "px,0)";
+      });
+    }
+  }, [elements]);
+  console.log(elements);
   return (
     <>
       <h1 className="h1__text">Supported Platforms</h1>
       <div className="platforms">
         <img src={logo} className="logo" />
-        <div className="circular">
+        <motion.div className="circular">
           {platforms.map((platform) => (
-            <Platform
-              key={platforms.indexOf(platform)}
-              name={platform.name}
-              comingSoon={platform.comingSoon}
-              logo={platform.logo}
-            />
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              ref={(e) => elements.current.push(e)}
+            >
+              <Platform
+                key={platforms.indexOf(platform)}
+                name={platform.name}
+                comingSoon={platform.comingSoon}
+                logo={platform.logo}
+              />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </>
   );

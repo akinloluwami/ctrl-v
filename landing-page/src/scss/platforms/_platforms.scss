@@ -1,5 +1,13 @@
 @import "../colors";
 
+@keyframes spinZ {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
 .platforms {
   position:relative;
   padding:0 0 30px 0;
@@ -20,7 +28,7 @@
   animation: spinZ 20s linear infinite;
   text-align: center;
 
-  &>.platform{
+  &>*{
      position: absolute;
   display: inline-block;
   left: 0;
