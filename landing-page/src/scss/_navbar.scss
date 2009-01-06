@@ -87,6 +87,13 @@
 
 @media screen and (max-width:750px){
 .container .navbar{
+    display: flex;
+    justify-content: space-around;
+      &__toggle {
+      display: block;
+      font-size:40px;
+      cursor:pointer;
+    }
   &__links, &__ctas{
     display:none
   }
