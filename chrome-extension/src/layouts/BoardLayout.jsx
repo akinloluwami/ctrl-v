@@ -10,8 +10,6 @@ import Settings from "../components/Settings";
 
 function BoardLayout() {
   const [selectedId, setSelectedId] = useState(1);
-  const [itemId, setItemId] = useState();
-
   const handleSelectedId = useCallback(
     (id) => {
       setSelectedId(id);
