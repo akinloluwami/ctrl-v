@@ -3,4 +3,4 @@
 * (x) Chrome extension (in progress)
 * (x) Web app
 * (x) Mobile app
-* (x) Backend
+* (x) Backend (in progress)
