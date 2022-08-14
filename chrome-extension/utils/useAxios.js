@@ -13,7 +13,7 @@ const postData = async (url, payload, config) => {
 
 const getData = async (url, payload, config) => {
   try {
-    const response = await axios.get(`${baseURL}${url}`, config);
+    const response = await axios.get(`${baseURL}${url}`, payload, config);
     return response;
   } catch (err) {
     return err.response;
