@@ -102,7 +102,7 @@ const login = async (req, res) => {
   res.status(200).json({
     token,
     message: "Logged in successfully",
-    currentDevice,
+    deviceToken: currentDevice,
   });
 };
 
