@@ -1,6 +1,6 @@
 require("dotenv").config();
-const Link = require("../schema/Link");
 const jwt = require("jsonwebtoken");
+const Link = require("../schema/Link");
 const User = require("../schema/User");
 
 const sendLink = async (req, res) => {
