@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Box, Text, Link, Img, Input, Button, Center } from "@chakra-ui/react";
 import HashLoader from "react-spinners/HashLoader";
+import { postData } from "../utils/useAxios";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
