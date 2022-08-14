@@ -84,7 +84,7 @@ const login = async (req, res) => {
   const isProMember = user.isProMember;
 
   const currentDevice = crypto.randomBytes(16).toString("hex");
-  if (connectedDevices.length > 2 && !isProMember) {
+  if (connectedDevices.length > 1 && !isProMember) {
     return res.status(400).json({
       error: "You have reached the maximum number of devices",
     });
@@ -150,16 +150,15 @@ const resendOTP = async (req, res) => {
 };
 
 const logout = async (req, res) => {
-  const { currentDevice } = req.body;
-  const user = await User.findOne({ connectedDevices: currentDevice });
+  const { deviceToken } = req.body;
+  const user = await User.findOne({ connectedDevices: deviceToken });
   if (!user) {
     return res.status(400).json({
       error: "Device does not exist",
     });
   }
   const connectedDevices = user.connectedDevices;
-  const index = connectedDevices.indexOf(currentDevice);
-  connectedDevices.splice(index, 1);
+  connectedDevices.pop(deviceToken);
   user.connectedDevices = connectedDevices;
   await user.save();
   res.status(200).json({
