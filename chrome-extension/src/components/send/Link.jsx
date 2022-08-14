@@ -1,4 +1,4 @@
-import { Box, Button, Input } from "@chakra-ui/react";
+import { Box, Button, Input, Text } from "@chakra-ui/react";
 import React, { useState, Fragment, useRef } from "react";
 import { postData } from "../../../utils/useAxios";
 
@@ -18,6 +18,8 @@ function SendLink() {
       const res = await postData("/link", data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        params: {
           deviceToken: localStorage.getItem("deviceToken"),
         },
       });
@@ -26,8 +28,10 @@ function SendLink() {
         setError(false);
         setLink("");
         inputRef.current.value = "";
-        console.log(res.data);
         setLoading(false);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 3000);
       } else {
         setLoading(false);
         console.log(res.data.error);
@@ -42,6 +46,16 @@ function SendLink() {
   return (
     <Fragment>
       <Box>
+        {success && (
+          <Text
+            color="green.500"
+            fontSize="lg"
+            fontWeight="bold"
+            textAlign="center"
+          >
+            Link sent successfully
+          </Text>
+        )}
         <Input
           type="text"
           placeholder="Paste link here"
