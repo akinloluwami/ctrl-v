@@ -8,6 +8,7 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,14 +16,16 @@ function Login() {
     postData("/auth/login", { email, password }).then((res) => {
       setLoading(false);
       if (res.status === 200) {
-        console.log(res);
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("deviceToken", res.data.deviceToken);
+        setSuccess(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
       } else {
         setLoading(false);
         setError(true);
         setErrorMessage(res.data.error);
-        console.log(res);
       }
     });
   };
@@ -54,10 +57,21 @@ function Login() {
         CtrlV
       </Text>
       <Box width={"100%"}>
+        {success && (
+          <Text
+            color="green.500"
+            textAlign={"center"}
+            backgroundColor="rgba(0, 255, 0, 0.1)"
+            borderRadius="lg"
+            padding={2}
+          >
+            Login successful
+          </Text>
+        )}
         {error &&
           errorMessage === "You have reached the maximum number of devices" && (
             <Box>
-              <Text color="white" textAlign="center" my="2">
+              <Text color="white" textAlign="center" mb="2">
                 <Text
                   color="red.500"
                   textAlign={"center"}
