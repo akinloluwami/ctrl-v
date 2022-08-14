@@ -1,3 +1,4 @@
+require("dotenv").config();
 const Text = require("../schema/Text");
 const jwt = require("jsonwebtoken");
 const User = require("../schema/User");
