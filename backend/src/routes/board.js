@@ -3,3 +3,5 @@ const router = express.Router();
 const Board = require("../controllers/board");
 
 router.get("/", Board.getData);
+
+module.exports = router;
