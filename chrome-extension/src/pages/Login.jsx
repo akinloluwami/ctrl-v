@@ -1,20 +1,30 @@
 import { useState } from "react";
 import { Box, Text, Link, Img, Input, Button, Center } from "@chakra-ui/react";
 import HashLoader from "react-spinners/HashLoader";
-import { postData } from "../utils/useAxios";
+import { postData } from "../../utils/useAxios";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    localStorage.setItem("token", "123");
-    setTimeout(() => {
+    postData("/auth/login", { email, password }).then((res) => {
       setLoading(false);
-      window.location.reload();
-    }, 5000);
+      if (res.status === 200) {
+        console.log(res);
+        localStorage.setItem("token", res.data.token);
+        localStorage.setItem("deviceToken", res.data.deviceToken);
+      } else {
+        setLoading(false);
+        setError(true);
+        setErrorMessage(res.data.error);
+        console.log(res);
+      }
+    });
   };
 
   return (
@@ -40,15 +50,43 @@ function Login() {
           />
         </Link>
       </Box>
-      <Text
-        fontSize="4em"
-        fontWeight="bold"
-        textAlign="center"
-        marginBottom="1em"
-      >
+      <Text fontSize="4em" fontWeight="bold" textAlign="center">
         CtrlV
       </Text>
       <Box width={"100%"}>
+        {error &&
+          errorMessage === "You have reached the maximum number of devices" && (
+            <Box>
+              <Text color="white" textAlign="center" my="2">
+                <Text
+                  color="red.500"
+                  textAlign={"center"}
+                  backgroundColor="rgba(255, 0, 0, 0.1)"
+                  borderRadius="lg"
+                  padding={2}
+                >
+                  {errorMessage}
+                </Text>
+                <Link href="/pro" color="#646cff" fontWeight="500">
+                  <br />
+                  Upgrade to Pro{" "}
+                </Link>
+                to use CtrlV on up to 10 devices.
+              </Text>
+            </Box>
+          )}
+        {error &&
+          errorMessage !== "You have reached the maximum number of devices" && (
+            <Text
+              color="red.500"
+              textAlign={"center"}
+              backgroundColor="rgba(255, 0, 0, 0.1)"
+              borderRadius="lg"
+              padding={2}
+            >
+              {errorMessage}
+            </Text>
+          )}
         <Input
           type="text"
           placeholder="Email"
@@ -56,7 +94,7 @@ function Login() {
           padding={"0.5em"}
           borderRadius={"0.25em"}
           border="1px solid #ccc"
-          fontSize="1.5em"
+          fontSize="1.2em"
           color="#fff"
           background={"transparent"}
           transition="all 0.2s ease-in-out"
@@ -66,6 +104,7 @@ function Login() {
             borderColor: "#646cff",
             outline: "none",
             boxShadow: "0 0 0.5em #646cff",
+            background: "transparent",
           }}
         />
         <Input
@@ -76,7 +115,7 @@ function Login() {
           padding={"0.5em"}
           borderRadius={"0.25em"}
           border="1px solid #ccc"
-          fontSize="1.5em"
+          fontSize="1.2em"
           color="#fff"
           width="100%"
           margin="0.5em auto"
@@ -86,6 +125,7 @@ function Login() {
             borderColor: "#646cff",
             outline: "none",
             boxShadow: "0 0 0.5em #646cff",
+            background: "transparent",
           }}
         />
         <Center>
@@ -95,12 +135,11 @@ function Login() {
             disabled={loading}
             padding={"0.5em"}
             borderRadius={"0.25em"}
-            border="1px solid #ccc"
-            fontSize="1.5em"
+            fontSize="1.2em"
             color="#fff"
-            background={"transparent"}
+            background={"#646cff"}
             transition="all 0.2s ease-in-out"
-            width="90%"
+            width="100%"
             margin="0.5em auto"
             _focus={{
               borderColor: "#646cff",
@@ -117,7 +156,7 @@ function Login() {
             {loading ? (
               <Center>
                 <HashLoader
-                  size={35}
+                  size={20}
                   color={"#fff"}
                   style={{
                     backgroundColor: "transparent",
@@ -130,7 +169,7 @@ function Login() {
           </Button>
         </Center>
       </Box>
-      <Text marginTop="1em" fontSize="1.3em">
+      <Text marginTop="1.2em" fontSize="1.2em">
         New to CtrlV?{" "}
         <Link
           href="https://vitejs.dev/docs/ctrl-v"
