@@ -15,7 +15,7 @@ function SendLink() {
       link,
     };
     try {
-      const res = await postData("/link", {
+      const res = await postData("/link", data, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           deviceToken: localStorage.getItem("deviceToken"),
