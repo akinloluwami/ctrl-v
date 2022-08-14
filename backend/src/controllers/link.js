@@ -5,33 +5,43 @@ const User = require("../schema/User");
 
 const sendLink = async (req, res) => {
   const { tkn, deviceToken } = req.headers;
-  const { link } = req.body;
-  if (!tkn) {
-    return res.status(400).json({
-      error: "Token is required",
-    });
-  }
-  const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
-  const { _id } = decoded;
-  const user = await User.findOne({ _id });
-  if (!user) {
-    return res.status(400).json({
-      error: "User not found",
-    });
-  }
-  const connectedDevices = user.connectedDevices;
-  if (!connectedDevices.includes(deviceToken)) {
-    return res.status(400).json({
-      error: "You are not connected to this device",
-    });
-  }
-  const newLink = new Link({
-    link,
-    userId: _id,
-  });
-  await newLink.save();
+  // const { link } = req.body;
+  // if (!tkn) {
+  //   return res.status(400).json({
+  //     error: "Token is required",
+  //   });
+  // }
+  // const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+  // const { _id } = decoded;
+  // const user = await User.findOne({ _id });
+  // if (!user) {
+  //   return res.status(400).json({
+  //     error: "User not found",
+  //   });
+  // }
+  // const connectedDevices = user.connectedDevices;
+  // if (!connectedDevices.includes(deviceToken)) {
+  //   return res.status(400).json({
+  //     error: "You are not connected to this device",
+  //   });
+  // }
+  // const newLink = new Link({
+  //   link,
+  //   userId: _id,
+  // });
+  // await newLink.save();
+  // res.status(200).json({
+  //   message: "Link sent successfully",
+  // });
+  console.log(
+    "==============================================================="
+  );
+  console.log(tkn);
+  console.log(deviceToken);
   res.status(200).json({
     message: "Link sent successfully",
+    token: tkn,
+    deviceToken,
   });
 };
 
