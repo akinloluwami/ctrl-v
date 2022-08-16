@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, FlatList, Animated } from "react-native";
 import onboardingData from "../../utils/onborading";
 import OnboardingItem from "./OnboardingItem";
+import Paginator from "./Paginator";
 
 export default Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -33,6 +34,7 @@ export default Onboarding = () => {
           ref={slidesRef}
         />
       </View>
+      <Paginator data={onboardingData} scrollX={scrollX} />
     </View>
   );
 };
