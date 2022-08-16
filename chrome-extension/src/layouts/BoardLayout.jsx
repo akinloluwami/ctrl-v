@@ -18,7 +18,7 @@ function BoardLayout() {
   );
 
   return (
-    <>
+    <Box>
       <Navbar selectedId={selectedId} handleSelectedId={handleSelectedId} />
       {selectedId === 2 ? (
         <Send />
@@ -27,7 +27,7 @@ function BoardLayout() {
       ) : (
         <MainBoard />
       )}
-    </>
+    </Box>
   );
 }
 
