@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, FlatList, Animated } from "react-native";
 import onboardingData from "../../utils/onborading";
+import NextButton from "./NextButton";
 import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 
@@ -35,6 +36,7 @@ export default Onboarding = () => {
         />
       </View>
       <Paginator data={onboardingData} scrollX={scrollX} />
+      <NextButton />
     </View>
   );
 };
