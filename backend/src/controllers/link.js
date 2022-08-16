@@ -49,13 +49,15 @@ const sendLink = async (req, res) => {
 };
 
 const getLinks = async (req, res) => {
-  const { tkn, deviceToken } = req.headers;
+  const { deviceToken } = req.query;
+  const tkn = req.headers.authorization;
   if (!tkn) {
     return res.status(400).json({
       error: "Token is required",
     });
   }
-  const decoded = jwt.verify(tkn, process.env.JWT_SECRET);
+  const token = tkn.split(" ")[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const { _id } = decoded;
   const user = await User.findOne({ _id });
   if (!user) {
