@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from "react";
 import Svg, { G, Circle } from "react-native-svg";
 import colors from "../../utils/colors";
 import { AntDesign } from "@expo/vector-icons";
+
 export default function NextButton({ percentage, scrollTo }) {
   const size = 100;
   const strokeWidth = 2;
