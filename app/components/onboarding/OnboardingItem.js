@@ -30,7 +30,7 @@ export default OnboardingItem = ({ item }) => {
           },
         ]}
       />
-      <View style={{ flex: 0.3 }}>
+      <View style={{ flex: 0.7 }}>
         <Text style={styles.title}>{item.title}</Text>
         <Text style={styles.description}>{item.description}</Text>
       </View>
