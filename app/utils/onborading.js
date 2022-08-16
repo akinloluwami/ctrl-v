@@ -5,7 +5,7 @@ import files from "../assets/upload-file.png";
 
 const onboardingData = [
   {
-    title: "Welcome to the CtrlV",
+    title: "Welcome to CtrlV",
     description: "Share links, texts and files between your devices.",
     image: logo,
   },
