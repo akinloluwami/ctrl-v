@@ -18,11 +18,16 @@ export default Paginator = ({ data, scrollX }) => {
           outputRange: [10, 20, 10],
           extrapolate: "clamp",
         });
+        const opacity = scrollX.interpolate({
+          inputRange,
+          outputRange: [0.5, 1, 0.5],
+          extrapolate: "clamp",
+        });
 
         return (
           <Animated.View
             key={i.toString()}
-            style={[styles.dot, { width: dotWidth }]}
+            style={[styles.dot, { width: dotWidth, opacity }]}
           />
         );
       })}
