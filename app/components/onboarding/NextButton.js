@@ -17,7 +17,7 @@ export default function NextButton({ percentage, scrollTo }) {
     return Animated.timing(progressAnimation, {
       toValue,
       duration: 500,
-      useNativeDriver: btrue,
+      useNativeDriver: true,
     }).start();
   };
   useEffect(() => {
