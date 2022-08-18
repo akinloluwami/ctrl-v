@@ -115,7 +115,12 @@ export default Login = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          AsyncStorage.removeItem("@viewedOnboarding");
+          DevSettings.reload();
+        }}
+      >
         <Text style={styles.text}>Forgot Password?</Text>
       </TouchableOpacity>
 
