@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, DevSettings } from "react-native";
 import React from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
@@ -12,6 +12,7 @@ export default Home = () => {
           title="Register"
           onPress={() => {
             AsyncStorage.removeItem("@viewedOnboarding");
+            DevSettings.reload();
           }}
         />
       </View>
