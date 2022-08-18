@@ -6,6 +6,7 @@ import Home from "./screens/Home";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { NavigationContainer } from "@react-navigation/native";
 import Navigator from "./navigation/Navigation";
+import colors from "./utils/colors";
 
 const Loading = () => {
   <View>
@@ -36,7 +37,7 @@ export default function App() {
     [loading];
 
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={{ colors: { background: colors.background } }}>
       {loading ? (
         <Loading />
       ) : onboardingViewed ? (
@@ -44,7 +45,7 @@ export default function App() {
       ) : (
         <Onboarding />
       )}
-      <StatusBar style="auto" />
+      <StatusBar backgroundColor="rgba(255,255,255,0.6)" />
     </NavigationContainer>
   );
 }
