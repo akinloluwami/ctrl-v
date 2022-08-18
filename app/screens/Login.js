@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
 import logo from "../assets/logo.png";
 import { AntDesign } from "@expo/vector-icons";
+import { postData } from "../utils/useAxios";
 
 export default Login = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -32,6 +33,38 @@ export default Login = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
+
+  const handleLogin = async () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 10000);
+    const data = {
+      email,
+      password,
+    };
+    const response = await postData("/auth/login", data);
+    response
+      .then((res) => {
+        if (res.status === 200) {
+          // AsyncStorage.setItem("token", res.data.token);
+          // navigation.navigate("Home");
+          console.log(res.data);
+        } else {
+          // setError(true);
+          // setErrorMessage(res.data.message);
+          console.log(res);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsLoading(false);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
 
   return (
     <Animated.View
@@ -91,16 +124,11 @@ export default Login = ({ navigation }) => {
           style={[
             styles.btn,
             {
-              opacity: !email || !password ? 0.3 : 1,
+              opacity: !email || !password || isLoading ? 0.3 : 1,
             },
           ]}
           onPress={() => {
-            setIsLoading(true);
-            setTimeout(() => {
-              setIsLoading(false);
-              setError(true);
-              setErrorMessage("Invalid email or password");
-            }, 1000);
+            handleLogin();
           }}
           disabled={isLoading || !email || !password}
         >
