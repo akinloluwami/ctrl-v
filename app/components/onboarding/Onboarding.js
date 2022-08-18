@@ -12,8 +12,9 @@ import NextButton from "./NextButton";
 import OnboardingItem from "./OnboardingItem";
 import Paginator from "./Paginator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import colors from "../../utils/colors";
 
-export default Onboarding = () => {
+export default Onboarding = ({ navigation }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef = useRef(null);
@@ -70,5 +71,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.background,
   },
 });
