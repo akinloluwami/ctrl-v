@@ -11,8 +11,8 @@ import {
 } from "react-native";
 import React, { useRef, useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import colors from "../utils/colors";
-import logo from "../assets/logo.png";
+import colors from "../../utils/colors";
+import logo from "../../assets/logo.png";
 import { AntDesign } from "@expo/vector-icons";
 
 export default Signup = ({ navigation }) => {

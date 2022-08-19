@@ -11,10 +11,10 @@ import {
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import colors from "../utils/colors";
-import logo from "../assets/logo.png";
+import colors from "../../utils/colors";
+import logo from "../../assets/logo.png";
 import { AntDesign } from "@expo/vector-icons";
-import { postData } from "../utils/useAxios";
+import { login } from "../../api/auth/UserAuth";
 
 export default Login = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -43,27 +43,17 @@ export default Login = ({ navigation }) => {
       email,
       password,
     };
-    const response = await postData("/auth/login", data);
-    response
-      .then((res) => {
-        if (res.status === 200) {
-          // AsyncStorage.setItem("token", res.data.token);
-          // navigation.navigate("Home");
-          console.log(res.data);
-        } else {
-          // setError(true);
-          // setErrorMessage(res.data.message);
-          console.log(res);
-          setIsLoading(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsLoading(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    const response = await login(data);
+    if (response.status === 200) {
+      // await AsyncStorage.setItem("token", response.data.token);
+      // navigation.navigate("Home");
+      console.log(response);
+    } else {
+      setError(true);
+      setIsLoading(false);
+      setErrorMessage(response.data.error);
+      // console.log(response.data.error);
+    }
   };
 
   return (
