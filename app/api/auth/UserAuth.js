@@ -1,14 +1,13 @@
 import RequestHandler from "../RequestHandler";
 
-export const login = async (email, password) => {
+export const login = async (data) => {
   try {
     const result = await RequestHandler("/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      email,
-      password,
+      data: data,
     });
     return result;
   } catch (err) {
@@ -16,11 +15,10 @@ export const login = async (email, password) => {
   }
 };
 
-const signup = async (email, password, confirmPassword) => {
+const signup = async (email, password) => {
   const data = {
     email,
     password,
-    confirmPassword,
   };
   const response = await RequestHandler.post("/auth/signup", data);
   return response;
