@@ -19,9 +19,10 @@ function Login() {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("deviceToken", res.data.deviceToken);
         setSuccess(true);
-        setTimeout(() => {
-          window.location.reload();
-        }, 300);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 300);
+        console.log(res);
       } else {
         setLoading(false);
         setError(true);
