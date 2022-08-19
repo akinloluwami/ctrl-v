@@ -11,7 +11,7 @@ export default function Navigator() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const checkAuth = async () => {
     try {
-      const value = await AsyncStorage.getItem("@auth");
+      const value = await AsyncStorage.getItem("token");
       if (value !== null) {
         setIsAuthenticated(true);
       }
