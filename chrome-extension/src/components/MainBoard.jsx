@@ -1,6 +1,6 @@
 import { Box, Button, Flex, Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { getData } from "../../utils/useAxios";
+import { getData, postData } from "../../utils/useAxios";
 import LinkDisplay from "./LinkDisplay";
 function MainBoard() {
   const [links, setLinks] = useState([]);
@@ -38,6 +38,23 @@ function MainBoard() {
       {links.map((link, index) => (
         <LinkDisplay key={index} link={link.link} createdAt={link.createdAt} />
       ))}
+      <Button
+        onClick={() => {
+          postData("/auth/logout", {
+            deviceToken: localStorage.getItem("deviceToken"),
+          })
+            .then((res) => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("deviceToken");
+              console.log(res);
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }}
+      >
+        Logout
+      </Button>
     </Box>
   );
 }
