@@ -33,26 +33,30 @@ export default Login = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleLogin = async () => {
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 10000);
     const data = {
       email,
       password,
     };
+
     const response = await login(data);
     if (response.status === 200) {
-      // await AsyncStorage.setItem("token", response.data.token);
-      // navigation.navigate("Home");
-      console.log(response);
+      await AsyncStorage.setItem("token", response.data.token);
+      await AsyncStorage.setItem("deviceToken", response.data.deviceToken);
+      setIsLoading(false);
+      setSuccess(true);
+      setSuccessMessage(response.data.message);
+      setTimeout(() => {
+        navigation.navigate("Home");
+      }, 2000);
     } else {
       setError(true);
       setIsLoading(false);
       setErrorMessage(response.data.error);
-      // console.log(response.data.error);
     }
   };
 
@@ -69,6 +73,7 @@ export default Login = ({ navigation }) => {
 
       <Text style={[styles.title]}>Login</Text>
       {error && <Text style={styles.error}>{errorMessage}</Text>}
+      {success && <Text style={styles.success}>{successMessage}</Text>}
 
       <View style={styles.form}>
         <Text style={styles.text}>Email</Text>
@@ -237,6 +242,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 10,
     backgroundColor: "rgba(255, 0, 0, 0.2)",
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  success: {
+    color: "#0f0",
+    fontSize: 14,
+    marginBottom: 10,
+    backgroundColor: "rgba(0, 255, 0, 0.2)",
     paddingRight: 10,
     paddingLeft: 10,
     borderRadius: 10,
