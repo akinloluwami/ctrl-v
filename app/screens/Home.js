@@ -1,10 +1,40 @@
 import { StyleSheet, Text, View, Button, DevSettings } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { logout } from "../api/auth/UserAuth";
 
-export default Home = () => {
+export default Home = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [deviceToken, setDeviceToken] = useState("");
+
+  useEffect(() => {
+    const getDeviceToken = async () => {
+      const token = await AsyncStorage.getItem("deviceToken");
+      setDeviceToken(token);
+    };
+    getDeviceToken();
+  }),
+    [deviceToken];
+
+  const handleLogout = async () => {
+    setIsLoading(true);
+    const response = await logout(deviceToken);
+    if (response.status === 200) {
+      await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("deviceToken");
+      setIsLoading(false);
+      setTimeout(() => {
+        navigation.navigate("Auth", { screen: "Login" });
+      }),
+        1000;
+    } else {
+      setIsLoading(false);
+      console.log("Error @handleLogout", response.data);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text
@@ -16,8 +46,10 @@ export default Home = () => {
       >
         Get me litttt!!!! 🔥🔥🔥🔥🔥🔥🔥{" "}
       </Text>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.text}>Logout</Text>
+      <TouchableOpacity style={styles.button} onPress={() => handleLogout()}>
+        <Text style={styles.text}>
+          {isLoading ? "Logging out..." : "Logout"}
+        </Text>
       </TouchableOpacity>
     </View>
   );
