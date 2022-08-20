@@ -52,7 +52,7 @@ export default Login = ({ navigation }) => {
       setSuccess(true);
       setSuccessMessage(response.data.message);
       setTimeout(() => {
-        navigation.navigate("Home");
+        navigation.navigate("Board", { screen: "Home" });
       }, 2000);
     } else {
       setError(true);

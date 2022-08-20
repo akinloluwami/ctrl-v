@@ -3,6 +3,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import colors from "./utils/colors";
 import RootNavigator from "./navigation/RootNavigator";
+
 const Loading = () => {
   <View>
     <ActivityIndicator size="large" color="#0000ff" />
