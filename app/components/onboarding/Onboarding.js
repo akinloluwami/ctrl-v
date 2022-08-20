@@ -28,8 +28,8 @@ export default Onboarding = ({ navigation }) => {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
     } else {
       try {
-        await AsyncStorage.setItem("@viewedOnboarding", "true");
-        DevSettings.reload();
+        // await AsyncStorage.setItem("@viewedOnboarding", "true");
+        navigation.navigate("Auth", { screen: "Login" });
       } catch (err) {
         console.log("Error @scrollTo", err);
       }
