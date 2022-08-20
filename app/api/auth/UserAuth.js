@@ -15,11 +15,19 @@ export const login = async (data) => {
   }
 };
 
-const signup = async (email, password) => {
+export const signup = async (email, password) => {
   const data = {
     email,
     password,
   };
   const response = await RequestHandler.post("/auth/signup", data);
+  return response;
+};
+
+export const logout = async (deviceToken) => {
+  const data = {
+    deviceToken,
+  };
+  const response = await RequestHandler.post("/auth/logout", data);
   return response;
 };
