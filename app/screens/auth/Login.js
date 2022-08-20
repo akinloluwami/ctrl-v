@@ -38,6 +38,7 @@ export default Login = ({ navigation }) => {
 
   const handleLogin = async () => {
     setIsLoading(true);
+    setError(false);
     const data = {
       email,
       password,
@@ -141,7 +142,6 @@ export default Login = ({ navigation }) => {
       <TouchableOpacity
         onPress={() => {
           AsyncStorage.removeItem("@viewedOnboarding");
-          DevSettings.reload();
         }}
       >
         <Text style={styles.text}>Forgot Password?</Text>
