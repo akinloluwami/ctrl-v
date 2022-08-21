@@ -61,7 +61,7 @@ export default Login = ({ navigation }) => {
     }
   };
 
-  const checkAuth = useEffect(() => {
+  useEffect(() => {
     (async () => {
       try {
         const value = await AsyncStorage.getItem("token");
