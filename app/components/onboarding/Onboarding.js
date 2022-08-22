@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -15,6 +15,21 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../../utils/colors";
 
 export default Onboarding = ({ navigation }) => {
+  useEffect(() => {
+    (async () => {
+      try {
+        const value = await AsyncStorage.getItem("viewedOnboarding");
+        if (value) {
+          //setOnboardingViewed(true);
+          navigation.navigate("Auth", { screen: "Login" });
+          //console.log("onboardingViewed yen yen ");
+        }
+      } catch (err) {
+        console.log("Error @checkOnboarding", err);
+      }
+    })();
+  }, []);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef = useRef(null);
@@ -28,8 +43,9 @@ export default Onboarding = ({ navigation }) => {
       slidesRef.current.scrollToIndex({ index: currentIndex + 1 });
     } else {
       try {
-        // await AsyncStorage.setItem("@viewedOnboarding", "true");
+        await AsyncStorage.setItem("viewedOnboarding", "viewed");
         navigation.navigate("Auth", { screen: "Login" });
+        console.log("omo e dn end oo");
       } catch (err) {
         console.log("Error @scrollTo", err);
       }

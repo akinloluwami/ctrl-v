@@ -61,6 +61,19 @@ export default Login = ({ navigation }) => {
     }
   };
 
+  useEffect(() => {
+    (async () => {
+      try {
+        const value = await AsyncStorage.getItem("token");
+        if (value) {
+          navigation.navigate("Board", { screen: "Home" });
+        }
+      } catch (err) {
+        console.log("Error @checkAuth", err);
+      }
+    })();
+  }, []);
+
   return (
     <Animated.View
       style={[
