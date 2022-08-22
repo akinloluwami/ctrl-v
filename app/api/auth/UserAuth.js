@@ -15,10 +15,11 @@ export const login = async (data) => {
   }
 };
 
-export const signup = async (email, password) => {
+export const signup = async (email, password, confirmPassword) => {
   const data = {
     email,
     password,
+    confirmPassword,
   };
   const response = await RequestHandler.post("/auth/signup", data);
   return response;

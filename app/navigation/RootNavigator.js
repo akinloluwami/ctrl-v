@@ -50,7 +50,9 @@ export default function RootNavigator() {
 
   return (
     <Root.Navigator screenOptions={{ headerShown: false }}>
-      <Root.Screen name="Onboarding" component={Onboarding} />
+      {!onboardingViewed && (
+        <Root.Screen name="Onboarding" component={Onboarding} />
+      )}
       <Root.Screen name="Auth" component={AuthNavigator} />
       <Root.Screen name="Board" component={BoardNavigator} />
     </Root.Navigator>
