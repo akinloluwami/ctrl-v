@@ -11,9 +11,8 @@ const Root = createStackNavigator();
 export default function RootNavigator() {
   return (
     <Root.Navigator screenOptions={{ headerShown: false }}>
-      {!onboardingViewed && (
-        <Root.Screen name="Onboarding" component={Onboarding} />
-      )}
+      <Root.Screen name="Onboarding" component={Onboarding} />
+
       <Root.Screen name="Auth" component={AuthNavigator} />
       <Root.Screen name="Board" component={BoardNavigator} />
     </Root.Navigator>
