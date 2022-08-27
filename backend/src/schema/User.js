@@ -45,6 +45,9 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  subcriptionExpiry: {
+    type: Date,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
