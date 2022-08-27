@@ -20,6 +20,8 @@ export default Home = ({ navigation }) => {
 
   const handleLogout = async () => {
     setIsLoading(true);
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("deviceToken");
     const response = await logout(deviceToken);
     if (response.status === 200) {
       await AsyncStorage.removeItem("token");
