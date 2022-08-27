@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../../utils/colors";
 import logo from "../../assets/logo.png";
 import { AntDesign } from "@expo/vector-icons";
+import { signup } from "../../api/auth/UserAuth";
 
 export default Signup = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -25,6 +26,7 @@ export default Signup = ({ navigation }) => {
       useNativeDriver: true,
     }).start();
   }, [fadeAnim]);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -32,6 +34,40 @@ export default Signup = ({ navigation }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isHidden, setIsHidden] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const handleSignup = async () => {
+    setIsLoading(true);
+    setError(false);
+    const data = {
+      name,
+      email,
+      password,
+      confirmPassword,
+    };
+
+    const response = await signup(data);
+
+    console.log(response.data);
+
+    if (response.status === 200) {
+      setIsLoading(false);
+      setSuccess(true);
+      setSuccessMessage(response.data.message);
+      // setTimeout(() => {
+      //   navigation.navigate("Auth", { screen: "Login" });
+      //   setSuccessMessage("");
+      //   setSuccess(false);
+      //   // setEmail("");
+      //   // setPassword("");
+      //   setIsLoading(false);
+      // }, 200);
+    } else {
+      setError(true);
+      setIsLoading(false);
+      setErrorMessage(response.data.error);
+    }
+  };
 
   return (
     <Animated.View
@@ -48,6 +84,13 @@ export default Signup = ({ navigation }) => {
       {error && <Text style={styles.error}>{errorMessage}</Text>}
 
       <View style={styles.form}>
+        <Text style={styles.text}>Name</Text>
+
+        <TextInput
+          placeholder="email"
+          style={styles.input}
+          onChangeText={(text) => setName(text)}
+        />
         <Text style={styles.text}>Email</Text>
 
         <TextInput
@@ -97,7 +140,7 @@ export default Signup = ({ navigation }) => {
             placeholder="password"
             secureTextEntry={isHidden}
             style={styles.input}
-            onChangeText={(text) => setPassword(text)}
+            onChangeText={(text) => setConfirmPassword(text)}
           />
           <TouchableOpacity
             style={{
@@ -122,18 +165,13 @@ export default Signup = ({ navigation }) => {
           style={[
             styles.btn,
             {
-              opacity: !email || !password ? 0.3 : 1,
+              // opacity: !email || !password ? 0.3 : 1,
             },
           ]}
           onPress={() => {
-            setIsLoading(true);
-            setTimeout(() => {
-              setIsLoading(false);
-              setError(true);
-              setErrorMessage("Invalid email or password");
-            }, 1000);
+            handleSignup();
           }}
-          disabled={isLoading || !email || !password}
+          // disabled={isLoading || !email || !password}
         >
           <Text
             style={{
