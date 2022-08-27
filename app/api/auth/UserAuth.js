@@ -15,12 +15,8 @@ export const login = async (data) => {
   }
 };
 
-export const signup = async (email, password, confirmPassword) => {
-  const data = {
-    email,
-    password,
-    confirmPassword,
-  };
+export const signup = async (name, email, password, confirmPassword) => {
+  const data = { name, email, password, confirmPassword };
   const response = await RequestHandler.post("/auth/signup", data);
   return response;
 };
