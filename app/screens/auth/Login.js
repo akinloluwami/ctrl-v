@@ -18,6 +18,8 @@ import { login } from "../../api/auth/UserAuth";
 
 export default Login = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
+  const emailRef = useRef();
+  const passwordRef = useRef();
 
   useEffect(() => {
     Animated.timing(fadeAnim, {
@@ -45,6 +47,7 @@ export default Login = ({ navigation }) => {
     };
 
     const response = await login(data);
+
     if (response.status === 200) {
       await AsyncStorage.setItem("token", response.data.token);
       await AsyncStorage.setItem("deviceToken", response.data.deviceToken);
@@ -53,7 +56,13 @@ export default Login = ({ navigation }) => {
       setSuccessMessage(response.data.message);
       setTimeout(() => {
         navigation.navigate("Board", { screen: "Home" });
-      }, 2000);
+        setSuccessMessage("");
+        setSuccess(false);
+        // setEmail("");
+        // setPassword("");
+
+        setIsLoading(false);
+      }, 200);
     } else {
       setError(true);
       setIsLoading(false);
@@ -95,7 +104,9 @@ export default Login = ({ navigation }) => {
         <TextInput
           placeholder="email"
           style={styles.input}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text.trim())}
+          ref={emailRef}
+          autoCapitalize="none"
         />
 
         <Text style={styles.text}>Password</Text>
@@ -109,6 +120,7 @@ export default Login = ({ navigation }) => {
             secureTextEntry={isHidden}
             style={styles.input}
             onChangeText={(text) => setPassword(text)}
+            ref={passwordRef}
           />
           <TouchableOpacity
             style={{
