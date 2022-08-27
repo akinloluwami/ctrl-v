@@ -6,6 +6,7 @@ const crypto = require("crypto");
 
 const signup = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
+  console.log(name, email, password, confirmPassword);
   const otp = crypto.randomBytes(4).toString("hex");
   const otpExpiry = new Date(Date.now() + 3600000);
   const salt = await bcrypt.genSalt(10);
@@ -74,12 +75,12 @@ const login = async (req, res) => {
       error: "Email or password is incorrect",
     });
   }
-  const isEmailVerified = user.isEmailVerified;
-  if (!isEmailVerified) {
-    return res.status(400).json({
-      error: "Email is not verified",
-    });
-  }
+  // const isEmailVerified = user.isEmailVerified;
+  // if (!isEmailVerified) {
+  //   return res.status(400).json({
+  //     error: "Email is not verified",
+  //   });
+  // }
   const connectedDevices = user.connectedDevices;
   const isProMember = user.isProMember;
 
