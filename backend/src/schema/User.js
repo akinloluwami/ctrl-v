@@ -48,6 +48,9 @@ const userSchema = new mongoose.Schema({
   subcriptionExpiry: {
     type: Date,
   },
+  paystackPaymentString: {
+    type: String,
+  },
 });
 
 module.exports = mongoose.model("User", userSchema);
