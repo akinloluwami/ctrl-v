@@ -9,6 +9,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
+      <h1>CtrlV</h1>
     </div>
   );
 }
