@@ -45,7 +45,23 @@ function Navbar() {
           )}
         </div>
       </div>
-      <div className={`navbar__mobile__menu ${open ? "open" : ""}`}></div>
+      <div className={`navbar__mobile__menu ${open ? "open" : ""}`}>
+        <ul className="navbar__mobile__menu__links">
+          <li className="navbar__mobile__menu__links__link">
+            <a href="#">Features</a>
+          </li>
+          <li className="navbar__mobile__menu__links__link">
+            <a href="#">Platforms</a>
+          </li>
+          <li className="navbar__mobile__menu__links__link">
+            <a href="#">Pricing</a>
+          </li>
+        </ul>
+        <div className="navbar__mobile__menu__ctas">
+          <a href="#">Login</a>
+          <a href="#">Sign Up</a>
+        </div>
+      </div>
     </div>
   );
 }
