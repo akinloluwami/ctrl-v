@@ -99,6 +99,12 @@
         background-color: rgba($accent, 0.02);
         position: absolute;
         backdrop-filter: blur(8px);
+        transform: translateX(-100%);
+        transition: ease 0.5s;
+        &.open {
+          transform: translate(0);
+          transition: ease 0.5s;
+        }
       }
     }
   }
