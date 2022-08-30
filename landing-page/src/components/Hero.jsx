@@ -8,7 +8,7 @@ function Hero() {
       </h1>
       <p>Share links, texts and files between your devives seamlessly.</p>
       <center>
-        <a href="#">Get Started</a>
+        <a href="/">Get Started</a>
       </center>
     </div>
   );
