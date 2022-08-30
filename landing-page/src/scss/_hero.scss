@@ -1,0 +1,43 @@
+@import "./colors";
+
+.hero {
+  margin-top: 20px;
+  h1 {
+    text-align: center;
+    font-size: 6em;
+    width: 60%;
+    margin: auto;
+    span {
+      color: $accent;
+    }
+  }
+  p {
+    text-align: center;
+    width: 90%;
+    margin: auto;
+    font-size: 25px;
+  }
+  center {
+    margin-top: 40px;
+    a {
+      background-color: $accent;
+      font-size: 20px;
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 15px;
+      border-radius: 50px;
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .hero {
+    h1 {
+      font-size: 3.2em;
+      width: 100%;
+    }
+    p {
+      margin-top: 20px;
+    }
+  }
+}
