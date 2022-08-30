@@ -1,0 +1,29 @@
+@import "../colors";
+
+.feature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 10px 0;
+  .io {
+    font-size: 30px;
+    padding: 5px;
+    border-radius: 5px;
+    margin: 10px 0;
+  }
+  h2 {
+    font-size: 1em;
+    font-weight: 500;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+  p {
+    font-size: 12px;
+    width: 300px;
+    text-align: center;
+    color: #9e9d9d;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+}
