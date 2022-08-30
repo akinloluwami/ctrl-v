@@ -20,9 +20,7 @@ function Navbar() {
       </ul>
       <div className="navbar__ctas">
         <a href="#">Login</a>
-        <a href="#">
-          <button>Sign Up</button>
-        </a>
+        <a href="#">Sign Up</a>
       </div>
     </div>
   );
