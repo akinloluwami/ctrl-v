@@ -1,8 +1,11 @@
 import React from "react";
 import logo from "../assets/ctrlV_logo.png";
 import { RiMenu4Fill } from "react-icons/ri";
+import { VscClose } from "react-icons/vsc";
+import { useState } from "react";
 
 function Navbar() {
+  const [open, setOpen] = useState(false);
   return (
     <div className="container">
       <div className="navbar">
@@ -25,10 +28,24 @@ function Navbar() {
           <a href="#">Sign Up</a>
         </div>
         <div className="navbar__toggle">
-          <RiMenu4Fill className="io" />
+          {open ? (
+            <VscClose
+              className="io"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
+          ) : (
+            <RiMenu4Fill
+              className="io"
+              onClick={() => {
+                setOpen(!open);
+              }}
+            />
+          )}
         </div>
       </div>
-      <div className="navbar__mobile__menu"></div>
+      <div className={`navbar__mobile__menu ${open ? "open" : ""}`}></div>
     </div>
   );
 }
