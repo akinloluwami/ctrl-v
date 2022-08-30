@@ -6,9 +6,12 @@ function Hero() {
       <h1>
         Sync your <span>devices</span> with CtrlV
       </h1>
-      <p>Share links, texts and files between your devives seamlessly.</p>
+      <p>Share links, texts and files between your devices seamlessly.</p>
       <center>
         <a href="/">Get Started</a>
+        <br />
+        <br />
+        <small>It's free, seriously</small>
       </center>
     </div>
   );
