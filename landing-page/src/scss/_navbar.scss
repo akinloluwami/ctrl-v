@@ -19,6 +19,7 @@
   top: 0;
   background-color: rgba($accent, 0.2);
   backdrop-filter: blur(10px);
+  z-index: 99999;
   .navbar {
     display: flex;
     justify-content: space-between;
