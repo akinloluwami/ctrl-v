@@ -1,0 +1,16 @@
+@import "../colors";
+
+.features {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(3, 1fr);
+  @media only screen and (max-width: 480px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  margin-top: 80px;
+  h1 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-inline-start: 0px;
+  }
+}
