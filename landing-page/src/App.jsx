@@ -2,6 +2,7 @@ import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import "./scss/App.scss";
 import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -9,7 +10,7 @@ function App() {
   return (
     <div className="App">
       <Navbar />
-      <h1>CtrlV</h1>
+      <Hero />
     </div>
   );
 }
