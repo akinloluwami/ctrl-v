@@ -1,9 +1,12 @@
 import React from "react";
+import logo from "../assets/ctrlV_logo.png";
 
 function Navbar() {
   return (
     <div className="navbar">
-      <div className="navbar__logo"></div>
+      <div className="navbar__logo">
+        <img src={logo} alt="" />
+      </div>
       <ul className="navbar__links">
         <li className="navbar__links__link">
           <a href="#">Features</a>
