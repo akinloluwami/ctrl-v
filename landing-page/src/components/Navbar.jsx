@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../assets/ctrlV_logo.png";
+import { RiMenu4Fill } from "react-icons/ri";
 
 function Navbar() {
   return (
@@ -21,6 +22,9 @@ function Navbar() {
       <div className="navbar__ctas">
         <a href="#">Login</a>
         <a href="#">Sign Up</a>
+      </div>
+      <div className="navbar__toggle">
+        <RiMenu4Fill className="io" />
       </div>
     </div>
   );
