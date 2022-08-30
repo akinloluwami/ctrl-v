@@ -15,7 +15,12 @@ function Navbar() {
           <a href="#">Pricing</a>
         </li>
       </ul>
-      <div className="navbar__ctas"></div>
+      <div className="navbar__ctas">
+        <a href="#">Login</a>
+        <a href="#">
+          <button>Sign Up</button>
+        </a>
+      </div>
     </div>
   );
 }
