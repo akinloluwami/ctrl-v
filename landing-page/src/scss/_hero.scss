@@ -7,6 +7,7 @@
     font-size: 6em;
     width: 60%;
     margin: auto;
+    font-weight: 600;
     span {
       color: $accent;
     }
@@ -15,16 +16,16 @@
     text-align: center;
     width: 90%;
     margin: auto;
-    font-size: 25px;
+    font-size: 20px;
   }
   center {
     margin-top: 40px;
     a {
       background-color: $accent;
-      font-size: 20px;
+      font-size: 15px;
       color: #fff;
       text-decoration: none;
-      padding: 10px 15px;
+      padding: 10px 20px;
       border-radius: 50px;
     }
   }
