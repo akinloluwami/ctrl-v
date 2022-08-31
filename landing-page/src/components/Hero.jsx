@@ -8,7 +8,7 @@ function Hero() {
       </h1>
       <p>Share links, texts and files between your devices seamlessly.</p>
       <center>
-        <a href="/">Get Started</a>
+        <a href="/">Download</a>
         <br />
         <br />
         <small>It's free, seriously</small>
