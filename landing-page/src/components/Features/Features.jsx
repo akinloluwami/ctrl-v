@@ -2,8 +2,7 @@ import React from "react";
 import Feature from "./Feature";
 import { VscExtensions, VscEllipsis } from "react-icons/vsc";
 import { BsFileEarmarkPlus } from "react-icons/bs";
-import { CgInfinity } from "react-icons/cg";
-import { BsShieldLock } from "react-icons/bs";
+import { BsShieldLock, BsFileText } from "react-icons/bs";
 import { AiOutlineDeploymentUnit } from "react-icons/ai";
 
 function Features() {
@@ -15,12 +14,12 @@ function Features() {
     },
     {
       icon: <BsFileEarmarkPlus />,
-      title: "Up to 1GB per file",
+      title: "Up to 250MB per file",
       color: "#db307a",
     },
     {
-      icon: <CgInfinity />,
-      title: "Unlimited texts",
+      icon: <BsFileText />,
+      title: "Up to 15,000 words",
       color: "#ff5722",
     },
     {
