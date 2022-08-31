@@ -1,0 +1,59 @@
+@import "../colors";
+
+.price {
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px;
+  width: 400px;
+  height: fit-content;
+  border: 1px solid $accent;
+  p {
+    margin-left: 20px;
+    background-color: rgba(#242424, 0.4);
+    width: fit-content;
+    padding: 6px;
+    border-radius: 5px;
+  }
+  &:nth-child(2) {
+    background-color: rgba($accent, 0.5);
+    box-shadow: -10px -10px 0px 0px $accent;
+  }
+  &__plan {
+    margin-left: 20px;
+    font-size: 40px;
+    font-weight: 500;
+  }
+  &__price {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-weight: 600;
+    margin-left: 20px;
+    span {
+      font-size: 20px;
+      font-weight: 400;
+      margin-left: 2px;
+    }
+  }
+  &__features {
+    list-style: none;
+    &__feature {
+      margin: 25px 0;
+    }
+  }
+  &__button {
+    width: 100%;
+    height: 50px;
+    background-color: rgba($accent, 0.5);
+    border: none;
+    outline: none;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+}
