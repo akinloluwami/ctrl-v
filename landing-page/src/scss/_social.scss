@@ -1,0 +1,31 @@
+@import "./colors";
+
+.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 50px;
+  &__icon {
+    font-size: 50px;
+    cursor: pointer;
+  }
+  &__title {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-weight: 500;
+    font-size: 30px;
+    margin: 20px 0;
+  }
+  &__text {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    text-align: center;
+    color: #c9c6c6;
+    font-size: 18px;
+    width: 250px;
+    a {
+      color: #fff;
+    }
+  }
+}
