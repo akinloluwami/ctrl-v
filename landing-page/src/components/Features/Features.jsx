@@ -39,7 +39,7 @@ function Features() {
     },
   ];
   return (
-    <div className="features">
+    <div className="features" id="features">
       {features.map((feature, _) => (
         <Feature
           key={_}
