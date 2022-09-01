@@ -45,7 +45,7 @@ function Pricing() {
   const [duration, setDuration] = useState("/month");
   const [monthsFree, setMonthsFree] = useState();
   return (
-    <div className="pricing">
+    <div className="pricing" id="pricing">
       <h1 className="pricing__text">Pricing</h1>
       <div className="pricing__billingCycle">
         <p>Billing Cycle</p>
