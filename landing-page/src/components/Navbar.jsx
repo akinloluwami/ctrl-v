@@ -47,10 +47,20 @@ function Navbar() {
       </div>
       <div className={`navbar__mobile__menu ${open ? "open" : ""}`}>
         <ul className="navbar__mobile__menu__links">
-          <li className="navbar__mobile__menu__links__link">
+          <li
+            className="navbar__mobile__menu__links__link"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
             <a href="#features">Features</a>
           </li>
-          <li className="navbar__mobile__menu__links__link">
+          <li
+            className="navbar__mobile__menu__links__link"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
             <a href="#platforms">Platforms</a>
           </li>
           <li
