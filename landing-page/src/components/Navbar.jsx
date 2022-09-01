@@ -14,13 +14,13 @@ function Navbar() {
         </div>
         <ul className="navbar__links">
           <li className="navbar__links__link">
-            <a href="#">Features</a>
+            <a href="#features">Features</a>
           </li>
           <li className="navbar__links__link">
-            <a href="#">Platforms</a>
+            <a href="#platforms">Platforms</a>
           </li>
           <li className="navbar__links__link">
-            <a href="#">Pricing</a>
+            <a href="#pricing">Pricing</a>
           </li>
         </ul>
         <div className="navbar__ctas">
@@ -48,13 +48,18 @@ function Navbar() {
       <div className={`navbar__mobile__menu ${open ? "open" : ""}`}>
         <ul className="navbar__mobile__menu__links">
           <li className="navbar__mobile__menu__links__link">
-            <a href="#">Features</a>
+            <a href="#features">Features</a>
           </li>
           <li className="navbar__mobile__menu__links__link">
-            <a href="#">Platforms</a>
+            <a href="#platforms">Platforms</a>
           </li>
-          <li className="navbar__mobile__menu__links__link">
-            <a href="#">Pricing</a>
+          <li
+            className="navbar__mobile__menu__links__link"
+            onClick={() => {
+              setOpen(false);
+            }}
+          >
+            <a href="#pricing">Pricing</a>
           </li>
         </ul>
         <div className="navbar__mobile__menu__ctas">
