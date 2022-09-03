@@ -13,6 +13,10 @@ const TextSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    default: "text",
+  },
 });
 
 module.exports = mongoose.model("Text", TextSchema);
