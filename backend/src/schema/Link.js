@@ -13,6 +13,10 @@ const LinkSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  type: {
+    type: String,
+    default: "link",
+  },
 });
 
 module.exports = mongoose.model("Link", LinkSchema);
