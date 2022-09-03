@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Box, Text, Link, Img, Input, Button, Center } from "@chakra-ui/react";
 import HashLoader from "react-spinners/HashLoader";
 import { postData } from "../../utils/useAxios";
+import logo from "../../public/icons/v128.png";
+
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,10 +21,9 @@ function Login() {
         localStorage.setItem("token", res.data.token);
         localStorage.setItem("deviceToken", res.data.deviceToken);
         setSuccess(true);
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 300);
-        console.log(res);
+        setTimeout(() => {
+          window.location.reload();
+        }, 300);
       } else {
         setLoading(false);
         setError(true);
@@ -42,7 +43,7 @@ function Login() {
       <Box>
         <Link href="https://vitejs.dev" target="_blank">
           <Img
-            src="/vite.svg"
+            src={logo}
             alt="Vite logo"
             height="10em"
             padding="1.5em"
