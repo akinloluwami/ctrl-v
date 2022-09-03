@@ -27,6 +27,7 @@ function SendLink() {
         setSuccess(true);
         setError(false);
         setLink("");
+        console.log(res);
         inputRef.current.value = "";
         setLoading(false);
         setTimeout(() => {
