@@ -24,9 +24,12 @@ function Navbar({ selectedId, handleSelectedId }) {
       justifyContent={"space-between"}
       alignItems={"center"}
       padding="0.5em 0"
-      backgroundColor="rgba(0,0,0,0.2)"
+      backgroundColor="#1a1a1a"
       width={"100%"}
       margin={"0"}
+      position={"sticky"}
+      top="0"
+      zIndex={"99999"}
     >
       {NavItems.map((item) => (
         <ListItem key={item.name}>
