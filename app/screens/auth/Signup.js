@@ -54,14 +54,14 @@ export default Signup = ({ navigation }) => {
       setIsLoading(false);
       setSuccess(true);
       setSuccessMessage(response.data.message);
-      // setTimeout(() => {
-      //   navigation.navigate("Auth", { screen: "Login" });
-      //   setSuccessMessage("");
-      //   setSuccess(false);
-      //   // setEmail("");
-      //   // setPassword("");
-      //   setIsLoading(false);
-      // }, 200);
+      setTimeout(() => {
+        navigation.navigate("Auth", { screen: "Login" });
+        setSuccessMessage("");
+        setSuccess(false);
+        setEmail("");
+        setPassword("");
+        setIsLoading(false);
+      }, 200);
     } else {
       setError(true);
       setIsLoading(false);
