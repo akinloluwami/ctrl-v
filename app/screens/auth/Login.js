@@ -41,6 +41,7 @@ export default Login = ({ navigation }) => {
   const handleLogin = async () => {
     setIsLoading(true);
     setError(false);
+    console.log("Logging in...");
     const data = {
       email,
       password,
@@ -49,6 +50,7 @@ export default Login = ({ navigation }) => {
     const response = await login(data);
 
     if (response.status === 200) {
+      console.log("Succesfully logged in.");
       await AsyncStorage.setItem("token", response.data.token);
       await AsyncStorage.setItem("deviceToken", response.data.deviceToken);
       setIsLoading(false);
@@ -66,7 +68,7 @@ export default Login = ({ navigation }) => {
     } else {
       setError(true);
       setIsLoading(false);
-      setErrorMessage(response.data.error);
+      setErrorMessage(response.data.error || "Something went wrong");
     }
   };
 
