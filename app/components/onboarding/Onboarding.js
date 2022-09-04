@@ -45,7 +45,6 @@ export default Onboarding = ({ navigation }) => {
       try {
         await AsyncStorage.setItem("viewedOnboarding", "viewed");
         navigation.navigate("Auth", { screen: "Login" });
-        console.log("omo e dn end oo");
       } catch (err) {
         console.log("Error @scrollTo", err);
       }
