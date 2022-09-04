@@ -72,6 +72,7 @@ const getLinks = async (req, res) => {
     });
   }
   const links = await Link.find({ userId: _id });
+  // console.log(tkn + ".............." + deviceToken);
   res.status(200).json({
     links,
   });
