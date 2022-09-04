@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://172.19.64.1:1917";
+const baseURL = "http://172.23.240.1:1917";
 
 const postData = async (url, payload, config) => {
   try {
