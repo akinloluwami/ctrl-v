@@ -1,14 +1,26 @@
-import { StyleSheet, Text, View, Button, DevSettings } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Button,
+  DevSettings,
+  FlatList,
+} from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { logout } from "../api/auth/UserAuth";
+import { getLinks, getTexts } from "../api/data/data";
+import LinkDisplay from "../components/LinkDisplay";
 
 export default Home = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [deviceToken, setDeviceToken] = useState("");
-
+  const [JWT, setJWT] = useState("");
+  const [texts, setTexts] = useState([]);
+  const [links, setLinks] = useState([]);
+  const [data, setData] = useState([]);
   useEffect(() => {
     const getDeviceToken = async () => {
       const token = await AsyncStorage.getItem("deviceToken");
@@ -17,6 +29,15 @@ export default Home = ({ navigation }) => {
     getDeviceToken();
   }),
     [deviceToken];
+
+  useEffect(() => {
+    const getJWT = async () => {
+      const token = await AsyncStorage.getItem("token");
+      setJWT(token);
+    };
+    getJWT();
+  }),
+    [JWT];
 
   const handleLogout = async () => {
     setIsLoading(true);
@@ -37,17 +58,53 @@ export default Home = ({ navigation }) => {
     }
   };
 
+  const getTextsData = async () => {
+    const response = await getTexts(JWT, deviceToken);
+    // console.log(response);
+    if (response.status === 200) {
+      setTexts(response.data.texts);
+    }
+  };
+  const getLinksData = async () => {
+    const response = await getLinks(JWT, deviceToken);
+    // console.log(response);
+    if (response.status === 200) {
+      setLinks(response.data.links);
+    }
+  };
+
+  useEffect(() => {
+    getTextsData();
+    getLinksData();
+  }, []);
+
+  useEffect(() => {
+    setData([...links, ...texts]);
+  }, [links, texts]);
+
   return (
     <View style={styles.container}>
-      <Text
-        style={{
-          color: colors.accent,
-          fontSize: 20,
-          fontWeight: "bold",
+      {data
+        ?.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        )
+        .map((d, index) => {
+          if (d.type == "link") {
+            return <Text>{d.link}</Text>;
+          } else {
+            return <Text>Hellooooo</Text>;
+          }
+        })}
+      <TouchableOpacity
+        onPress={() => {
+          fetch("https://fakestoreapi.com/products/1")
+            .then((res) => res.json())
+            .then((json) => console.log(json));
         }}
       >
-        Get me litttt!!!! 🔥🔥🔥🔥🔥🔥🔥{" "}
-      </Text>
+        <Text>Fetch</Text>
+      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => handleLogout()}>
         <Text style={styles.text}>
           {isLoading ? "Logging out..." : "Logout"}
