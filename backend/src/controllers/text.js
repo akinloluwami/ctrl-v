@@ -53,6 +53,7 @@ const getTexts = async (req, res) => {
     });
   }
   const token = tkn.split(" ")[1];
+  // console.log(token + ".............." + deviceToken);
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const { _id } = decoded;
   const user = await User.findOne({ _id });
