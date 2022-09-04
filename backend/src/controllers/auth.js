@@ -85,7 +85,7 @@ const login = async (req, res) => {
   const isProMember = user.isProMember;
 
   const currentDevice = crypto.randomBytes(16).toString("hex");
-  if (connectedDevices.length > 1 && !isProMember) {
+  if (connectedDevices.length === 2 && !isProMember) {
     return res.status(400).json({
       error: "You have reached the maximum number of devices",
     });
