@@ -96,15 +96,6 @@ export default Home = ({ navigation }) => {
             return <Text>Hellooooo</Text>;
           }
         })}
-      <TouchableOpacity
-        onPress={() => {
-          fetch("https://fakestoreapi.com/products/1")
-            .then((res) => res.json())
-            .then((json) => console.log(json));
-        }}
-      >
-        <Text>Fetch</Text>
-      </TouchableOpacity>
       <TouchableOpacity style={styles.button} onPress={() => handleLogout()}>
         <Text style={styles.text}>
           {isLoading ? "Logging out..." : "Logout"}
