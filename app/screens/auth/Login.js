@@ -57,7 +57,7 @@ export default Login = ({ navigation }) => {
       setSuccess(true);
       setSuccessMessage(response.data.message);
       setTimeout(() => {
-        navigation.navigate("Board", { screen: "Home" });
+        navigation.navigate("Tab");
         setSuccessMessage("");
         setSuccess(false);
         // setEmail("");
@@ -77,7 +77,7 @@ export default Login = ({ navigation }) => {
       try {
         const value = await AsyncStorage.getItem("token");
         if (value) {
-          navigation.navigate("Board", { screen: "Home" });
+          navigation.navigate("Tab");
         }
       } catch (err) {
         console.log("Error @checkAuth", err);
