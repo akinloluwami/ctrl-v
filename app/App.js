@@ -9,6 +9,7 @@ import Onboarding from "./components/onboarding/Onboarding";
 import AuthNavigator from "./navigation/AuthNavigator";
 import BoardNavigator from "./navigation/BoardNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
+import { ToastProvider } from "react-native-toast-notifications";
 
 const Loading = () => {
   <View>
@@ -55,9 +56,13 @@ export default function App() {
   }),
     [checkAuth];
   return (
-    <NavigationContainer theme={{ colors: { background: colors.background } }}>
-      <RootNavigator />
-      <StatusBar backgroundColor="rgba(255,255,255,0.6)" />
-    </NavigationContainer>
+    <ToastProvider>
+      <NavigationContainer
+        theme={{ colors: { background: colors.background } }}
+      >
+        <RootNavigator />
+        <StatusBar backgroundColor="rgba(255,255,255,0.6)" />
+      </NavigationContainer>
+    </ToastProvider>
   );
 }
