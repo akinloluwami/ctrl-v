@@ -1,5 +1,6 @@
 import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../screens/Home";
+import Main from "../screens/Main";
 
 const BoardStack = createStackNavigator();
 
@@ -10,7 +11,7 @@ export default function BoardNavigator() {
         headerShown: false,
       }}
     >
-      <BoardStack.Screen name="Home" component={Home} />
+      <BoardStack.Screen name="Main" component={Main} />
     </BoardStack.Navigator>
   );
 }
