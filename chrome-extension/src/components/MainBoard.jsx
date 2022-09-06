@@ -18,6 +18,7 @@ function MainBoard() {
       },
     }).then((res) => {
       setTexts(res.data.texts);
+      console.log(res);
     });
   };
 
@@ -31,6 +32,7 @@ function MainBoard() {
       },
     }).then((res) => {
       setLinks(res.data.links);
+      console.log(res);
     });
   };
 
@@ -41,6 +43,7 @@ function MainBoard() {
 
   useEffect(() => {
     setData([...links, ...texts]);
+    console.log(data);
   }, [links, texts]);
 
   return (
