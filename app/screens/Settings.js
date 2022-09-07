@@ -55,11 +55,11 @@ export default Settings = () => {
         <Text style={styles.buttonText}>Upgrade to Pro ⚡</Text>
       </TouchableOpacity>
       {settingsOptions.map((option, _) => (
-        <View key={_} style={styles.settingsOption}>
+        <TouchableOpacity key={_} style={styles.settingsOption}>
           <Text style={styles.settingsOptionIcon}> {option.icon}</Text>
           <Text style={styles.settingsOptionText}>{option.title}</Text>
           {option.pro && <Text style={styles.pro}>Pro</Text>}
-        </View>
+        </TouchableOpacity>
       ))}
       <TouchableOpacity style={styles.logoutButton}>
         <Text style={styles.buttonText}>Logout</Text>
