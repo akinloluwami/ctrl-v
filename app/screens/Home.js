@@ -6,6 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { logout } from "../api/auth/UserAuth";
 import { getLinks, getTexts } from "../api/data/data";
 import LinkDisplay from "../components/LinkDisplay";
+import TextDisplay from "../components/TextDisplay";
 
 export default Home = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -81,9 +82,12 @@ export default Home = ({ navigation }) => {
   //   setData([...links, ...texts]);
   // }, [links, texts]);
 
-  const linksData = [
+  const boardData = [
     {
       link: "https://biglobe.ne.jp/metus/sapien/ut.jpg?in=porttitor&sapien=lorem&iaculis=id&congue=ligula&vivamus=suspendisse&metus=ornare",
+    },
+    {
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
     },
     {
       link: "https://dot.gov/in/faucibus/orci.js?rutrum=massa&neque=tempor&aenean=convallis&auctor=nulla&gravida=neque&sem=libero&praesent=convallis&id=eget&massa=eleifend&id=luctus&nisl=ultricies&venenatis=eu&lacinia=nibh&aenean=quisque&sit=id&amet=justo&justo=sit&morbi=amet&ut=sapien&odio=dignissim&cras=vestibulum&mi=vestibulum&pede=ante&malesuada=ipsum&in=primis&imperdiet=in&et=faucibus&commodo=orci&vulputate=luctus&justo=et&in=ultrices&blandit=posuere&ultrices=cubilia&enim=curae&lorem=nulla&ipsum=dapibus&dolor=dolor&sit=vel&amet=est&consectetuer=donec&adipiscing=odio&elit=justo&proin=sollicitudin&interdum=ut&mauris=suscipit&non=a&ligula=feugiat&pellentesque=et&ultrices=eros&phasellus=vestibulum&id=ac&sapien=est&in=lacinia&sapien=nisi&iaculis=venenatis&congue=tristique&vivamus=fusce&metus=congue&arcu=diam&adipiscing=id&molestie=ornare",
@@ -216,9 +220,13 @@ export default Home = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {linksData.map((link, i) => (
-          <LinkDisplay key={i} link={link.link} />
-        ))}
+        {boardData.map((data, i) => {
+          if (data.link) {
+            return <LinkDisplay key={i} link={data.link} />;
+          } else if (data.text) {
+            return <TextDisplay text={data.text} />;
+          }
+        })}
         {/* {data
         ?.sort(
           (a, b) =>
