@@ -15,8 +15,8 @@ import * as Clipboard from "expo-clipboard";
 export default LinkDisplay = ({ link }) => {
   const toast = useToast();
   const truncate = (str) => {
-    if (str.length > 30) {
-      return str.slice(0, 30) + "...";
+    if (str.length > 35) {
+      return str.slice(0, 35) + "...";
     } else {
       return str;
     }
@@ -28,6 +28,7 @@ export default LinkDisplay = ({ link }) => {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.from}>From Chrome</Text>
       <Text style={styles.link}>{truncate(link)}</Text>
       <TouchableOpacity
         style={styles.button}
@@ -56,10 +57,17 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 5,
     marginVertical: 10,
+    position: "relative",
+  },
+  from: {
+    position: "absolute",
+    top: 2,
+    left: 10,
+    color: "grey",
   },
   link: {
     color: "#fff",
-    fontSize: 18,
+    fontSize: 16,
   },
   button: {
     backgroundColor: colors.dots,
