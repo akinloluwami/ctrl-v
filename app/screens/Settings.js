@@ -18,8 +18,51 @@ import { FontAwesome } from "@expo/vector-icons";
 import { Octicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { logout } from "../api/auth/UserAuth";
 
-export default Settings = () => {
+export default Settings = ({ navigation }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [deviceToken, setDeviceToken] = useState("");
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    const getDeviceToken = async () => {
+      const token = await AsyncStorage.getItem("deviceToken");
+      setDeviceToken(token);
+    };
+    getDeviceToken();
+  }),
+    [deviceToken];
+
+  useEffect(() => {
+    const getJWT = async () => {
+      const token = await AsyncStorage.getItem("token");
+      setToken(token);
+    };
+    getJWT();
+  }),
+    [token];
+
+  const handleLogout = async () => {
+    console.log("Logging out...");
+    setIsLoading(true);
+    await AsyncStorage.removeItem("token");
+    await AsyncStorage.removeItem("deviceToken");
+    const response = await logout(deviceToken);
+    if (response.status === 200) {
+      await AsyncStorage.removeItem("token");
+      await AsyncStorage.removeItem("deviceToken");
+      setIsLoading(false);
+      console.log("Logged out.");
+      setTimeout(() => {
+        navigation.navigate("Auth", { screen: "Login" });
+      }),
+        1000;
+    } else {
+      setIsLoading(false);
+      console.log("Error @handleLogout", response.data);
+    }
+  };
   const settingsOptions = [
     {
       title: "Connected Devices",
@@ -61,8 +104,15 @@ export default Settings = () => {
           {option.pro && <Text style={styles.pro}>Pro</Text>}
         </TouchableOpacity>
       ))}
-      <TouchableOpacity style={styles.logoutButton}>
-        <Text style={styles.buttonText}>Logout</Text>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => {
+          handleLogout();
+        }}
+      >
+        <Text style={styles.buttonText}>
+          {isLoading ? "Logging out..." : "Logout"}
+        </Text>
       </TouchableOpacity>
     </View>
   );
