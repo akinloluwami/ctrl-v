@@ -45,12 +45,8 @@ export default Signup = ({ navigation }) => {
       password,
       confirmPassword,
     };
-
     const response = await signup(data);
-
-    console.log(response.data);
-
-    if (response.status === 200) {
+    if (response.status === 201) {
       setIsLoading(false);
       setSuccess(true);
       setSuccessMessage(response.data.message);
@@ -65,7 +61,7 @@ export default Signup = ({ navigation }) => {
     } else {
       setError(true);
       setIsLoading(false);
-      setErrorMessage(response.data.error);
+      setErrorMessage(response.data.error || "Something went wrong");
     }
   };
 
@@ -82,21 +78,23 @@ export default Signup = ({ navigation }) => {
 
       <Text style={[styles.title]}>Signup</Text>
       {error && <Text style={styles.error}>{errorMessage}</Text>}
-
+      {success && <Text style={styles.success}>{successMessage}</Text>}
       <View style={styles.form}>
         <Text style={styles.text}>Name</Text>
 
         <TextInput
           placeholder="email"
           style={styles.input}
-          onChangeText={(text) => setName(text)}
+          onChangeText={(text) => setName(text.trim())}
         />
         <Text style={styles.text}>Email</Text>
 
         <TextInput
           placeholder="email"
           style={styles.input}
-          onChangeText={(text) => setEmail(text)}
+          onChangeText={(text) => setEmail(text.toLowerCase().trim())}
+          autoCapitalize="none"
+          keyboardType="email-address"
         />
 
         <Text style={styles.text}>Password</Text>
@@ -280,6 +278,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginBottom: 10,
     backgroundColor: "rgba(255, 0, 0, 0.2)",
+    paddingRight: 10,
+    paddingLeft: 10,
+    borderRadius: 10,
+    margin: 10,
+  },
+  success: {
+    color: "#0f0",
+    fontSize: 14,
+    marginBottom: 10,
+    backgroundColor: "rgba(0, 255, 0, 0.2)",
     paddingRight: 10,
     paddingLeft: 10,
     borderRadius: 10,
