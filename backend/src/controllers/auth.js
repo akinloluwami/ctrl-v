@@ -6,7 +6,7 @@ const crypto = require("crypto");
 
 const signup = async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
-  console.log(name, email, password, confirmPassword);
+
   const otp = crypto.randomBytes(4).toString("hex");
   const otpExpiry = new Date(Date.now() + 3600000);
   const salt = await bcrypt.genSalt(10);
@@ -21,7 +21,7 @@ const signup = async (req, res) => {
     otpExpiry,
   });
   const emailExists = await User.findOne({ email });
-  const passwordsMatch = await bcrypt.compare(password, hashedConfirmPassword);
+  const passwordsMatch = hashedPassword === hashedConfirmPassword;
   const validEmail = email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i);
   const validName = name.match(/^[a-zA-Z ]{2,30}$/);
   if (emailExists) {
