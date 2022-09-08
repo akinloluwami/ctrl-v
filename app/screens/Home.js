@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { logout } from "../api/auth/UserAuth";
 import { getLinks, getTexts } from "../api/data/data";
 import LinkDisplay from "../components/LinkDisplay";
 import TextDisplay from "../components/TextDisplay";
@@ -32,25 +31,6 @@ export default Home = ({ navigation }) => {
     getJWT();
   }),
     [JWT];
-
-  const handleLogout = async () => {
-    setIsLoading(true);
-    await AsyncStorage.removeItem("token");
-    await AsyncStorage.removeItem("deviceToken");
-    const response = await logout(deviceToken);
-    if (response.status === 200) {
-      await AsyncStorage.removeItem("token");
-      await AsyncStorage.removeItem("deviceToken");
-      setIsLoading(false);
-      setTimeout(() => {
-        navigation.navigate("Auth", { screen: "Login" });
-      }),
-        1000;
-    } else {
-      setIsLoading(false);
-      console.log("Error @handleLogout", response.data);
-    }
-  };
 
   const getTextsData = async () => {
     const response = await getTexts(JWT, deviceToken);
@@ -224,7 +204,7 @@ export default Home = ({ navigation }) => {
           if (data.link) {
             return <LinkDisplay key={i} link={data.link} />;
           } else if (data.text) {
-            return <TextDisplay text={data.text} />;
+            return <TextDisplay key={i} text={data.text} />;
           }
         })}
         {/* {data
@@ -239,22 +219,6 @@ export default Home = ({ navigation }) => {
             return <Text>Hellooooo</Text>;
           }
         })} */}
-        {/* <TouchableOpacity style={styles.button} onPress={() => handleLogout()}>
-        <Text style={styles.text}>
-          {isLoading ? "Logging out..." : "Logout"}
-        </Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          console.log("logging...");
-          getLinksData();
-          // getTextsData();
-        }}
-      >
-        <Text style={styles.text}>Break?</Text>
-      </TouchableOpacity> */}
       </ScrollView>
     </View>
   );
