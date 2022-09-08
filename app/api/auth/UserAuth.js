@@ -15,10 +15,17 @@ export const login = async (data) => {
   }
 };
 
-export const signup = async (name, email, password, confirmPassword) => {
-  const data = { name, email, password, confirmPassword };
-  const response = await RequestHandler.post("/auth/signup", data);
-  return response;
+export const signup = async (data) => {
+  try {
+    const response = await RequestHandler.post("/auth/signup", data, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return response;
+  } catch (err) {
+    return err.response;
+  }
 };
 
 export const logout = async (deviceToken) => {
