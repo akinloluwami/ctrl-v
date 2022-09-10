@@ -1,14 +1,4 @@
-import {
-  StyleSheet,
-  Text,
-  View,
-  Button,
-  DevSettings,
-  FlatList,
-  SafeAreaView,
-  Platform,
-  ScrollView,
-} from "react-native";
+import { StyleSheet, Text, View, Platform, Button } from "react-native";
 import React, { useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
@@ -114,6 +104,12 @@ export default Settings = ({ navigation }) => {
           {isLoading ? "Logging out..." : "Logout"}
         </Text>
       </TouchableOpacity>
+      {/* <Button 
+        title="Logout"
+        onPress={() => {
+          handleLogout();
+        }}
+      /> */}
     </View>
   );
 };
