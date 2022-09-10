@@ -1,5 +1,13 @@
-import { StyleSheet, Text, View, Platform, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Platform,
+  ScrollView,
+  Button,
+  RefreshControl,
+} from "react-native";
+import React, { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
@@ -14,6 +22,7 @@ export default Home = ({ navigation }) => {
   const [texts, setTexts] = useState([]);
   const [links, setLinks] = useState([]);
   const [data, setData] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
     const getDeviceToken = async () => {
       const token = await AsyncStorage.getItem("deviceToken");
@@ -34,33 +43,32 @@ export default Home = ({ navigation }) => {
 
   const getTextsData = async () => {
     const response = await getTexts(JWT, deviceToken);
-
     if (response.status === 200) {
       setTexts(response.data.texts);
-      console.log(response.data);
+      setRefreshing(false);
     } else {
       console.log(response.data.error);
     }
   };
   const getLinksData = async () => {
     const response = await getLinks(JWT, deviceToken);
-    console.log(response);
+
     if (response.status === 200) {
       setLinks(response.data.links);
-      console.log(response.data);
+      setRefreshing(false);
     } else {
       console.log(response.data.error);
     }
   };
 
-  // useEffect(() => {
-  //   getTextsData();
-  //   getLinksData();
-  // }, []);
+  useEffect(() => {
+    getTextsData();
+    getLinksData();
+  }, []);
 
-  // useEffect(() => {
-  //   setData([...links, ...texts]);
-  // }, [links, texts]);
+  useEffect(() => {
+    setData([...links, ...texts]);
+  }, [links, texts]);
 
   const boardData = [
     {
@@ -197,30 +205,50 @@ export default Home = ({ navigation }) => {
     },
   ];
 
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    getLinksData();
+    getTextsData();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <ScrollView>
-        {boardData.map((data, i) => {
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor="#fff"
+        />
+      }
+    >
+      {/* {boardData.map((data, i) => {
           if (data.link) {
             return <LinkDisplay key={i} link={data.link} />;
           } else if (data.text) {
             return <TextDisplay key={i} text={data.text} />;
           }
-        })}
-        {/* {data
+        })} */}
+      {data
         ?.sort(
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
         )
-        .map((d, index) => {
-          if (d.type == "link") {
-            return <LinkDisplay link={d.link} />;
-          } else {
-            return <Text>Hellooooo</Text>;
+        .map((d, i) => {
+          if (d.link) {
+            return <LinkDisplay key={i} link={d.link} />;
+          } else if (d.text) {
+            return <TextDisplay key={i} text={d.text} />;
           }
-        })} */}
-      </ScrollView>
-    </View>
+        })}
+      {/* <Button
+          title="Break?"
+          onPress={() => {
+            getTextsData();
+            getLinksData();
+          }}
+        /> */}
+    </ScrollView>
   );
 };
 
