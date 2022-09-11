@@ -222,13 +222,6 @@ export default Home = ({ navigation }) => {
         />
       }
     >
-      {/* {boardData.map((data, i) => {
-          if (data.link) {
-            return <LinkDisplay key={i} link={data.link} />;
-          } else if (data.text) {
-            return <TextDisplay key={i} text={data.text} />;
-          }
-        })} */}
       {data
         ?.sort(
           (a, b) =>
