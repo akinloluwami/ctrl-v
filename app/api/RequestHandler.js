@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://192.168.250.249:1917";
+const baseURL = "https://ctrlvapp.herokuapp.com";
 
 const RequestHandler = axios.create({
   baseURL: baseURL,
