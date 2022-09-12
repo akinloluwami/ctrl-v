@@ -28,7 +28,7 @@ export default LinkDisplay = ({ link }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.from}>From Chrome</Text>
+      {/* <Text style={styles.from}>From Chrome</Text> */}
       <Text style={styles.link}>{truncate(link)}</Text>
       <TouchableOpacity
         style={styles.button}
