@@ -1,11 +1,84 @@
 import { StyleSheet, Text, View } from "react-native";
 import colors from "../utils/colors";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { TextInput, TouchableOpacity } from "react-native-gesture-handler";
+import { sendLink, sendText } from "../api/data/data";
 
 export default Send = () => {
   const [optionId, setOptionId] = useState();
+  const [deviceToken, setDeviceToken] = useState("");
+  const [JWT, setJWT] = useState("");
+  const [link, setLink] = useState("");
+  const [text, setText] = useState("");
+  const [sending, setSending] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  useEffect(() => {
+    const getDeviceToken = async () => {
+      const token = await AsyncStorage.getItem("deviceToken");
+      setDeviceToken(token);
+    };
+    getDeviceToken();
+  }),
+    [deviceToken];
+
+  useEffect(() => {
+    const getJWT = async () => {
+      const token = await AsyncStorage.getItem("token");
+      setJWT(token);
+    };
+    getJWT();
+  }),
+    [JWT];
+
+  const sendLinkFunc = async () => {
+    setSending(true);
+    setError(false);
+    setSuccess(false);
+    const data = {
+      link,
+    };
+    const response = await sendLink(JWT, deviceToken, data);
+    if (response.status === 200) {
+      console.log(response);
+      setSending(false);
+      setSuccess(true);
+      setSuccessMessage(response.data.message);
+      setLink("");
+    } else {
+      console.log(response);
+      setSending(false);
+      setErrorMessage(response.data.error);
+      setError(true);
+    }
+  };
+
+  const sendTextFunc = async () => {
+    setSending(true);
+    setError(false);
+    setSuccess(false);
+    const data = {
+      text,
+    };
+    const response = await sendText(JWT, deviceToken, data);
+    if (response.status === 200) {
+      console.log(response);
+      setSending(false);
+      setSuccess(true);
+      setSuccessMessage(response.data.message);
+      setText("");
+    } else {
+      console.log(response);
+      setSending(false);
+      setErrorMessage(response.data.error);
+      setError(true);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>What do you want to send?</Text>
@@ -20,6 +93,8 @@ export default Send = () => {
           ]}
           onPress={() => {
             setOptionId(1);
+            setError(false);
+            setSuccess(false);
           }}
         >
           <Text style={styles.boxText}>Link</Text>
@@ -34,6 +109,8 @@ export default Send = () => {
           ]}
           onPress={() => {
             setOptionId(2);
+            setError(false);
+            setSuccess(false);
           }}
         >
           <Text style={styles.boxText}>Text</Text>
@@ -42,22 +119,32 @@ export default Send = () => {
           style={styles.box}
           onPress={() => {
             setOptionId(optionId);
+            setError(false);
+            setSuccess(false);
           }}
         >
           <Text style={styles.boxText}>File</Text>
         </TouchableOpacity>
       </View>
       {!optionId && <Text style={styles.optionText}>Select an option</Text>}
+      {error && <Text style={styles.error}>{errorMessage}</Text>}
+      {success && <Text style={styles.success}>{successMessage}</Text>}
       {optionId === 1 && (
         <View>
           <TextInput
             placeholder="Paste link here"
             placeholderTextColor="grey"
             style={styles.input}
-            // onChangeText={(text) => setEmail(text.trim())}
+            onChangeText={(text) => setLink(text.trim())}
+            value={success && ""}
           />
-          <TouchableOpacity style={styles.btn}>
-            <Text style={styles.text}>Send</Text>
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => {
+              sendLinkFunc();
+            }}
+          >
+            <Text style={styles.text}>{sending ? "Sending..." : "Send"}</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -72,7 +159,17 @@ export default Send = () => {
             multiline={true}
             spellCheck={false}
             autoCorrect={false}
+            onChangeText={(text) => setText(text)}
+            value={success && ""}
           />
+          <TouchableOpacity
+            style={styles.btn}
+            onPress={() => {
+              sendTextFunc();
+            }}
+          >
+            <Text style={styles.text}>{sending ? "Sending..." : "Send"}</Text>
+          </TouchableOpacity>
         </View>
       )}
     </View>
@@ -170,19 +267,19 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "#f00",
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 10,
-    backgroundColor: "rgba(255, 0, 0, 0.2)",
     paddingRight: 10,
     paddingLeft: 10,
     borderRadius: 10,
     margin: 10,
+    textAlign: "center",
   },
   success: {
     color: "#0f0",
-    fontSize: 14,
+    fontSize: 16,
     marginBottom: 10,
-    backgroundColor: "rgba(0, 255, 0, 0.2)",
+    textAlign: "center",
     paddingRight: 10,
     paddingLeft: 10,
     borderRadius: 10,
