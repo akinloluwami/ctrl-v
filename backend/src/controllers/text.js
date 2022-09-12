@@ -21,6 +21,11 @@ const sendText = async (req, res) => {
       error: "User not found",
     });
   }
+  if (!text) {
+    return res.status(400).json({
+      error: " Text is required",
+    });
+  }
   const connectedDevices = user.connectedDevices;
   if (!connectedDevices.includes(deviceToken)) {
     return res.status(400).json({
