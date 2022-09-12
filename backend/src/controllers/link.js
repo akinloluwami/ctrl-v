@@ -12,7 +12,6 @@ const sendLink = async (req, res) => {
       error: "Token is required",
     });
   }
-
   if (!deviceToken) {
     return res.status(400).json({
       error: "Device token is required",
