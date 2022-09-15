@@ -77,6 +77,7 @@ function Platforms() {
       <div className="platforms">
         {platforms.map((platform) => (
           <Platform
+            key={platforms.indexOf(platform)}
             name={platform.name}
             comingSoon={platform.comingSoon}
             logo={platform.logo}
