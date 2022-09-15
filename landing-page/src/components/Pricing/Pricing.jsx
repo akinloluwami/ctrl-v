@@ -66,6 +66,7 @@ function Pricing() {
           >
             {billingCycles.map((bC, _) => (
               <button
+                key={_}
                 className="pricing__billingCycle__content__options__option"
                 onClick={() => {
                   setBillingCycle(bC.label);
