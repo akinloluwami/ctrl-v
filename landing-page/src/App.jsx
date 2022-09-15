@@ -9,6 +9,7 @@ import Social from "./components/Social";
 import Footer from "./components/Footer";
 
 function App() {
+  console.log(window.navigator.userAgentData);
   return (
     <div className="App">
       <Navbar />
