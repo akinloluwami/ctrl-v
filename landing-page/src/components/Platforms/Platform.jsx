@@ -1,7 +1,6 @@
 import React from "react";
 
 function Platform({ name, comingSoon, logo }) {
-  console.log(logo);
   return (
     <div className="platform" id="platforms">
       {comingSoon && <p>Coming soon</p>}
