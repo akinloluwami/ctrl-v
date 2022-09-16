@@ -25,7 +25,7 @@ app.use("/auth", authRouter);
 app.use("/link", linkRouter);
 app.use("/board", boardRouter);
 app.use("/text", textRouter);
-app.use("/upload", uploadRouter);
+app.use("/file", uploadRouter);
 
 const port = process.env.PORT || 1917;
 app.listen(port, () => {
