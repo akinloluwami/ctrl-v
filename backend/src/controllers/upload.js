@@ -1,7 +1,8 @@
 require("dotenv").config();
-const cloudinary = require("cloudinary");
+const cloudinary = require("cloudinary").v2;
 const User = require("../schema/User");
 const jwt = require("jsonwebtoken");
+const File = require("../schema/File");
 
 const uploadFile = async (req, res) => {
   cloudinary.config({
@@ -40,22 +41,73 @@ const uploadFile = async (req, res) => {
     });
   }
   const result = await cloudinary.uploader
-    .upload(file.tempFilePath, {
+    .upload(file, {
+      resource_type: "auto",
       folder: "uploads",
-      public_id: `ctrlv_${user.uuid}${Date.now()}`,
+      public_id: `ctrlv_${user._id}${Date.now()}`,
     })
     .then((result) => {
       return result;
     })
     .catch((err) => {
       return res.status(400).json({
-        message: "Error uploading image",
+        message: "Error uploading file",
+        err,
       });
     });
-  return res.status(201).json({
-    message: "File uploaded successfully",
+  return res.json({
     result,
+  });
+  // const supported = ["png", "mp4", "pdf", "jpg", "jpeg"];
+
+  // if (!supported.includes(result.format)) {
+  //   return res.status(400).json({
+  //     error: "File format not supported",
+  //   });
+  // } else {
+  //   const newFile = new File({
+  //     fileUrl: result.secure_url,
+  //     fileSize: result.bytes,
+  //     fileType: result.resource_type,
+  //     fileFormat: result.format,
+  //     fileName: result.original_filename,
+  //     userId: user._id,
+  //   });
+  //   await newFile.save();
+  //   return res.status(201).json({
+  //     message: "File uploaded successfully",
+  //     newFile,
+  //   });
+  // }
+};
+
+const getFiles = async (req, res) => {
+  const { deviceToken } = req.query;
+  const tkn = req.headers.authorization;
+  if (!tkn) {
+    return res.status(400).json({
+      error: "Token is required",
+    });
+  }
+  const token = tkn.split(" ")[1];
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  const { _id } = decoded;
+  const user = await User.findOne({ _id });
+  if (!user) {
+    return res.status(400).json({
+      error: "User not found",
+    });
+  }
+  const connectedDevices = user.connectedDevices;
+  if (!connectedDevices.includes(deviceToken)) {
+    return res.status(400).json({
+      error: "You are not connected to this device",
+    });
+  }
+  const files = await File.find({ userId: _id });
+  res.status(200).json({
+    files,
   });
 };
 
-module.exports = { uploadFile };
+module.exports = { uploadFile, getFiles };
