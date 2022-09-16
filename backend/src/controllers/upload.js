@@ -41,7 +41,7 @@ const uploadFile = async (req, res) => {
     });
   }
   const result = await cloudinary.uploader
-    .upload(file, {
+    .upload(file.tempFilePath, {
       resource_type: "auto",
       folder: "uploads",
       public_id: `ctrlv_${user._id}${Date.now()}`,
