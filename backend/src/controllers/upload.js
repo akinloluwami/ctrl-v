@@ -11,6 +11,7 @@ const uploadFile = async (req, res) => {
     api_secret: process.env.API_SECRET,
   });
   const token = req.headers.authorization;
+  const { filename } = req.body;
   if (!token) {
     return res.status(400).json({
       message: "Token is required",
@@ -55,30 +56,28 @@ const uploadFile = async (req, res) => {
         err,
       });
     });
-  return res.json({
-    result,
-  });
-  // const supported = ["png", "mp4", "pdf", "jpg", "jpeg"];
 
-  // if (!supported.includes(result.format)) {
-  //   return res.status(400).json({
-  //     error: "File format not supported",
-  //   });
-  // } else {
-  //   const newFile = new File({
-  //     fileUrl: result.secure_url,
-  //     fileSize: result.bytes,
-  //     fileType: result.resource_type,
-  //     fileFormat: result.format,
-  //     fileName: result.original_filename,
-  //     userId: user._id,
-  //   });
-  //   await newFile.save();
-  //   return res.status(201).json({
-  //     message: "File uploaded successfully",
-  //     newFile,
-  //   });
-  // }
+  const supported = ["png", "mp4", "pdf", "jpg", "jpeg"];
+
+  if (!supported.includes(result.format)) {
+    return res.status(400).json({
+      error: "File format not supported",
+    });
+  } else {
+    const newFile = new File({
+      fileUrl: result.secure_url,
+      fileSize: result.bytes,
+      fileType: result.resource_type,
+      fileFormat: result.format,
+      fileName: filename,
+      userId: user._id,
+    });
+    await newFile.save();
+    return res.status(201).json({
+      message: "File uploaded successfully",
+      newFile,
+    });
+  }
 };
 
 const getFiles = async (req, res) => {
