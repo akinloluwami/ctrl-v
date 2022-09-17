@@ -3,7 +3,3 @@ chrome.contextMenus.create({
   title: "Send to your devices",
   contexts: ["link"],
 });
-
-chrome.contextMenus.onClicked.addEventListener((clickedData) => {
-  localStorage.setItem("clickkk", clickedData);
-});
