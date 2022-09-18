@@ -7,6 +7,15 @@ const sendLink = async (req, res) => {
   const { deviceToken } = req.query;
   const tkn = req.headers.authorization;
   const { link } = req.body;
+
+  function isValidURL(string) {
+    const res = string.match(
+      /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g
+    );
+    return res !== null;
+  }
+  const validUrl = isValidURL(link);
+
   if (!tkn) {
     return res.status(400).json({
       error: "Token is required",
@@ -20,6 +29,11 @@ const sendLink = async (req, res) => {
   if (!link) {
     return res.status(400).json({
       error: "Link is required",
+    });
+  }
+  if (!validUrl) {
+    return res.status(400).json({
+      error: "Link is invalid",
     });
   }
   const token = tkn.split(" ")[1];
