@@ -16,14 +16,6 @@ import Send from "../components/Send";
 import Settings from "../components/Settings";
 
 function BoardLayout() {
-  const [selectedId, setSelectedId] = useState(1);
-  const handleSelectedId = useCallback(
-    (id) => {
-      setSelectedId(id);
-    },
-    [selectedId]
-  );
-
   return (
     <Tabs>
       <TabList>
