@@ -61,6 +61,16 @@ function MainBoard() {
   return (
     <Box width="100%" margin={"auto"} marginTop="15px">
       <>
+        {data.length < 1 && (
+          <Text
+            fontSize={"1.5em"}
+            fontWeight={"bold"}
+            textAlign={"center"}
+            my={"2"}
+          >
+            No data
+          </Text>
+        )}
         {data
           ?.sort(
             (a, b) =>
