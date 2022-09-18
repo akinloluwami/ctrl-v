@@ -9,8 +9,6 @@ import {
   TabList,
 } from "@chakra-ui/react";
 import React from "react";
-import { useCallback } from "react";
-import { useState } from "react";
 import MainBoard from "../components/MainBoard";
 import Send from "../components/Send";
 import Settings from "../components/Settings";
