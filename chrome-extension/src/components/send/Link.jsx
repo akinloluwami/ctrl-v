@@ -7,6 +7,7 @@ function SendLink() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const inputRef = useRef();
 
   const handleSendLink = async () => {
@@ -27,7 +28,6 @@ function SendLink() {
         setSuccess(true);
         setError(false);
         setLink("");
-        console.log(res);
         inputRef.current.value = "";
         setLoading(false);
         setTimeout(() => {
@@ -35,12 +35,14 @@ function SendLink() {
         }, 3000);
       } else {
         setLoading(false);
-        console.log(res.data.error);
+        setError(true);
+        setErrorMessage("Link is invalid");
       }
     } catch (err) {
       setError(true);
       setLoading(false);
       setSuccess(false);
+      setErrorMessage("Something went wrong");
     }
   };
 
@@ -55,6 +57,16 @@ function SendLink() {
             textAlign="center"
           >
             Link sent successfully
+          </Text>
+        )}
+        {error && (
+          <Text
+            color="red.500"
+            fontSize="lg"
+            fontWeight="bold"
+            textAlign="center"
+          >
+            {errorMessage}
           </Text>
         )}
         <Input
