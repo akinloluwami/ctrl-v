@@ -17,8 +17,8 @@ import Settings from "../components/Settings";
 
 function BoardLayout() {
   return (
-    <Tabs>
-      <TabList>
+    <Tabs isFitted>
+      <TabList position={"sticky"} top={"0"} zIndex={"99999999"}>
         <Tab>Board</Tab>
         <Tab>Send</Tab>
         <Tab>Settings</Tab>
