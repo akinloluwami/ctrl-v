@@ -1,4 +1,13 @@
-import { Box, Button, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Tab,
+  TabPanel,
+  TabPanels,
+  Tabs,
+  Text,
+  TabList,
+} from "@chakra-ui/react";
 import React from "react";
 import { useCallback } from "react";
 import { useEffect } from "react";
@@ -18,16 +27,24 @@ function BoardLayout() {
   );
 
   return (
-    <Box>
-      <Navbar selectedId={selectedId} handleSelectedId={handleSelectedId} />
-      {selectedId === 2 ? (
-        <Send />
-      ) : selectedId === 3 ? (
-        <Settings />
-      ) : (
-        <MainBoard />
-      )}
-    </Box>
+    <Tabs>
+      <TabList>
+        <Tab>Board</Tab>
+        <Tab>Send</Tab>
+        <Tab>Settings</Tab>
+      </TabList>
+      <TabPanels>
+        <TabPanel>
+          <MainBoard />
+        </TabPanel>
+        <TabPanel>
+          <Send />
+        </TabPanel>
+        <TabPanel>
+          <Settings />
+        </TabPanel>
+      </TabPanels>
+    </Tabs>
   );
 }
 
