@@ -9,6 +9,10 @@ function Settings() {
         Settings
       </Text>
       <Button
+        backgroundColor={"red.600"}
+        color={"white"}
+        width={"100%"}
+        my={3}
         onClick={() => {
           postData("/auth/logout", {
             deviceToken: localStorage.getItem("deviceToken"),
