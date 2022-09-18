@@ -6,8 +6,8 @@ import { saveAs } from "file-saver";
 
 function FileDisplay({ fileUrl, createdAt, fileName, fileFormat, fileSize }) {
   const truncate = (str) => {
-    if (str.length > 30) {
-      return str.slice(0, 30) + "...";
+    if (str.length > 15) {
+      return str.slice(0, 15) + "...";
     } else {
       return str;
     }
@@ -34,6 +34,7 @@ function FileDisplay({ fileUrl, createdAt, fileName, fileFormat, fileSize }) {
       my="15px"
       backgroundColor={"rgba(0,0,0,0.2"}
     >
+      <img src={fileUrl} width="20%" />
       <Box>
         <Text fontWeight={"400"}>{truncate(fileName)}</Text>
         <Box fontSize={"10px"} display="flex" alignItems={"center"} gap="5px">
