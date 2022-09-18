@@ -11,12 +11,17 @@ function SendFile() {
   const [uploading, setUploading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
+  const [domImage, setDomImage] = useState("");
 
   const handleFileInput = async (e) => {
+    setDomImage();
     setFile(e?.target.files[0]);
     setFileName(e?.target.files[0].name.split(".")[0]);
     setFileSize(e?.target.files[0].size);
     setFileType(e?.target.files[0].type);
+    if (e?.target.files[0].type.includes("image")) {
+      setDomImage(URL.createObjectURL(e.target.files[0]));
+    }
   };
   const handleClick = () => {
     inputRef.current.click();
@@ -65,14 +70,7 @@ function SendFile() {
         onChange={handleFileInput}
         display={"none"}
       />
-      {file && (
-        <Box>
-          <Text>File info</Text>
-          <p>Filename: {fileName}</p>
-          <p>Size: {formatBytes(fileSize)}</p>
-          <p>Type: {fileType}</p>
-        </Box>
-      )}
+
       {success && (
         <Text
           color="green.500"
@@ -96,6 +94,15 @@ function SendFile() {
       >
         {!file ? "Select file" : "Change file"}
       </Button>
+      {file && (
+        <Box>
+          <Text>File info</Text>
+          <p>Filename: {fileName}</p>
+          <p>Size: {formatBytes(fileSize)}</p>
+          <p>Type: {fileType}</p>
+        </Box>
+      )}
+      {domImage && <img src={domImage} width="50%" />}
       <Button
         onClick={uploadFile}
         backgroundColor={"#646cff"}
