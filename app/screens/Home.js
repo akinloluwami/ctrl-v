@@ -11,7 +11,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import colors from "../utils/colors";
 import { Swipeable, TouchableOpacity } from "react-native-gesture-handler";
-import { getLinks, getTexts } from "../api/data/data";
+import { getFiles, getLinks, getTexts } from "../api/data/data";
 import LinkDisplay from "../components/LinkDisplay";
 import TextDisplay from "../components/TextDisplay";
 
@@ -21,6 +21,7 @@ export default Home = ({ navigation }) => {
   const [JWT, setJWT] = useState("");
   const [texts, setTexts] = useState([]);
   const [links, setLinks] = useState([]);
+  const [files, setFiles] = useState([]);
   const [data, setData] = useState([]);
   const [refreshing, setRefreshing] = useState(false);
   useEffect(() => {
@@ -61,14 +62,27 @@ export default Home = ({ navigation }) => {
     }
   };
 
+  const getFilesData = async () => {
+    const response = await getFiles();
+    console.log(response);
+
+    if (response.status === 200) {
+      setFiles(response.data.files);
+      setRefreshing(false);
+    } else {
+      console.log(response.data.error);
+    }
+  };
+
   useEffect(() => {
-    setData([...links, ...texts]);
-  }, [links, texts]);
+    setData([...links, ...texts, ...files]);
+  }, [links, texts, files]);
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     getLinksData();
     getTextsData();
+    getFilesData();
   }, []);
 
   return (
@@ -93,6 +107,8 @@ export default Home = ({ navigation }) => {
             return <LinkDisplay key={i} link={d.link} />;
           } else if (d.text) {
             return <TextDisplay key={i} text={d.text} />;
+          } else {
+            return <Text>File</Text>;
           }
         })}
     </ScrollView>
