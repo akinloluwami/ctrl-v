@@ -39,6 +39,23 @@ export const getLinks = async () => {
   }
 };
 
+export const getFiles = async () => {
+  try {
+    const result = await RequestHandler("/file", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
+      },
+      params: {
+        deviceToken: await AsyncStorage.getItem("deviceToken"),
+      },
+    });
+    return result;
+  } catch (err) {
+    return err.response;
+  }
+};
+
 export const sendLink = async (JWT, deviceToken, data) => {
   try {
     const response = await RequestHandler.post("/link", data, {
