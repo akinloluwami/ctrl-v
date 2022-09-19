@@ -12,9 +12,12 @@ function SendFile() {
   const [success, setSuccess] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [domImage, setDomImage] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleFileInput = async (e) => {
     setDomImage();
+    setError(false);
     setFile(e?.target.files[0]);
     setFileName(e?.target.files[0].name.split(".")[0]);
     setFileSize(e?.target.files[0].size);
@@ -48,9 +51,12 @@ function SendFile() {
       setSuccessMessage(res.data.message);
       setTimeout(() => {
         setSuccess(false);
+        setDomImage("");
       }, 3000);
     } else {
-      console.log(res);
+      setUploading(false);
+      setErrorMessage(res.data.error);
+      setError(true);
     }
   };
   const formatBytes = (bytes, decimals = 2) => {
@@ -79,6 +85,16 @@ function SendFile() {
           textAlign="center"
         >
           {successMessage}
+        </Text>
+      )}
+      {error && (
+        <Text
+          color="red.500"
+          fontSize="lg"
+          fontWeight="bold"
+          textAlign="center"
+        >
+          {errorMessage}
         </Text>
       )}
       <Button
