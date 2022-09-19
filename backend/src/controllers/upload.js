@@ -26,18 +26,18 @@ const uploadFile = async (req, res) => {
   });
   if (!user) {
     return res.status(400).json({
-      message: "User not found",
+      error: "User not found",
     });
   }
   const file = await req.files.upload;
   if (!file) {
     return res.status(400).json({
-      message: "File is required",
+      error: "File is required",
     });
   }
   if (file.size > 1000000 && !user.isProMember) {
     return res.status(400).json({
-      message:
+      error:
         "File cannot be greater than 25MB, upgrade to pro to upload up to 200MB",
     });
   }
@@ -47,37 +47,33 @@ const uploadFile = async (req, res) => {
       folder: "uploads",
       public_id: `ctrlv_${user._id}${Date.now()}`,
     })
-    .then((result) => {
-      return result;
+    .then(async (result) => {
+      const supported = ["png", "mp4", "pdf", "jpg", "jpeg", "webp"];
+
+      if (!supported.includes(result.format)) {
+        return res.status(400).json({
+          error: "File format not supported",
+        });
+      }
+      const newFile = new File({
+        fileUrl: result.secure_url,
+        fileSize: result.bytes,
+        fileType: result.resource_type,
+        fileFormat: result.format,
+        fileName: filename,
+        userId: user._id,
+      });
+      await newFile.save();
+      return res.status(201).json({
+        message: "File uploaded successfully",
+        newFile,
+      });
     })
     .catch((err) => {
       return res.status(400).json({
-        message: "Error uploading file",
-        err,
+        error: err.message,
       });
     });
-
-  const supported = ["png", "mp4", "pdf", "jpg", "jpeg"];
-
-  if (!supported.includes(result.format)) {
-    return res.status(400).json({
-      error: "File format not supported",
-    });
-  } else {
-    const newFile = new File({
-      fileUrl: result.secure_url,
-      fileSize: result.bytes,
-      fileType: result.resource_type,
-      fileFormat: result.format,
-      fileName: filename,
-      userId: user._id,
-    });
-    await newFile.save();
-    return res.status(201).json({
-      message: "File uploaded successfully",
-      newFile,
-    });
-  }
 };
 
 const getFiles = async (req, res) => {
