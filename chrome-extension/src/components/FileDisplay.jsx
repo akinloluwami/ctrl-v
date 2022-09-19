@@ -16,7 +16,7 @@ function FileDisplay({ fileUrl, createdAt, fileName, fileFormat, fileSize }) {
   const downloadFile = () => {
     saveAs(fileUrl, `${fileName}.${fileFormat}`);
   };
-
+  const preview = ["jpg", "png"];
   const formatBytes = (bytes, decimals = 2) => {
     if (bytes === 0) return "0 Bytes";
     const k = 1024;
@@ -34,7 +34,7 @@ function FileDisplay({ fileUrl, createdAt, fileName, fileFormat, fileSize }) {
       my="15px"
       backgroundColor={"rgba(0,0,0,0.2"}
     >
-      <img src={fileUrl} width="20%" />
+      {preview.includes(fileFormat) && <img src={fileUrl} width="20%" />}
       <Box>
         <Text fontWeight={"400"}>{truncate(fileName)}</Text>
         <Box fontSize={"10px"} display="flex" alignItems={"center"} gap="5px">
