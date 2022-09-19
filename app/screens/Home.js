@@ -62,15 +62,6 @@ export default Home = ({ navigation }) => {
   };
 
   useEffect(() => {
-    let unmounted = false;
-    if (!unmounted) {
-      getTextsData();
-      getLinksData();
-    }
-    return () => (unmounted = true);
-  }, []);
-
-  useEffect(() => {
     setData([...links, ...texts]);
   }, [links, texts]);
 
