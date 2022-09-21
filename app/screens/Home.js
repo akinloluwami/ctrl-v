@@ -14,6 +14,7 @@ import { Swipeable, TouchableOpacity } from "react-native-gesture-handler";
 import { getFiles, getLinks, getTexts } from "../api/data/data";
 import LinkDisplay from "../components/LinkDisplay";
 import TextDisplay from "../components/TextDisplay";
+import FileDisplay from "../components/FileDisplay";
 
 export default Home = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -108,7 +109,14 @@ export default Home = ({ navigation }) => {
           } else if (d.text) {
             return <TextDisplay key={i} text={d.text} />;
           } else {
-            return <Text>File</Text>;
+            return (
+              <FileDisplay
+                key={i}
+                fileName={d.fileName}
+                fileFormat={d.fileFormat}
+                fileSize={d.fileSize}
+              />
+            );
           }
         })}
     </ScrollView>
