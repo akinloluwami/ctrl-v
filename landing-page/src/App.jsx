@@ -8,8 +8,10 @@ import Pricing from "./components/Pricing/Pricing";
 import Social from "./components/Social";
 import Footer from "./components/Footer";
 
+
 import "locomotive-scroll/dist/locomotive-scroll.min.css";
 import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+import { AnimatePresence, motion } from "framer-motion";
 
 const scrollOptions = {
   smooth: true,
@@ -26,15 +28,23 @@ function App() {
       options={scrollOptions}
       containerRef={ref}
     >
-      <div className="App" data-scroll-container id="app" ref={ref}>
-        <Navbar />
-        <Hero />
-        <Features />
-        <Platforms />
-        <Pricing />
-        <Social />
-        <Footer />
-      </div>
+      <AnimatePresence exitBeforeEnter>
+        <motion.div
+          key="home"
+          className="App"
+          data-scroll-container
+          id="app"
+          ref={ref}
+        >
+          <Navbar />
+          <Hero />
+          <Features />
+          <Platforms />
+          <Pricing />
+          <Social />
+          <Footer />
+        </motion.div>
+      </AnimatePresence>
     </LocomotiveScrollProvider>
   );
 }
