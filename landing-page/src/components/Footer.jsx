@@ -1,11 +1,15 @@
 import React from "react";
 import logo from "../assets/ctrlV_logo.png";
 import NigerianFlag from "../assets/NigerianFlag";
-
+import { IoLogoAndroid } from "react-icons/io";
+import { BsApple, BsWindows } from "react-icons/bs";
+import { VscTerminalLinux } from "react-icons/vsc";
+import MacOs from "../assets/MacOs";
+import { SiGooglechrome, SiVisualstudiocode, SiFigma } from "react-icons/si";
 function Footer() {
   return (
     <div className="footer">
-      <div className="footer__content">
+      {/* <div className="footer__content">
         <div className="footer__content__item">
           <h3>Platforms</h3>
           <ul>
@@ -97,6 +101,74 @@ function Footer() {
           Made with <span>(x² + y² – 1)³ = x² y³ </span> in{" "}
           <img src="https://flagcdn.com/ng.svg" width="30" alt="Nigeria"></img>
         </p>
+      </div> */}
+
+      <div className="footer_content">
+        <div className="col-1">
+          <div className="logo">
+            <img src={logo} alt="ctrlV" />
+          </div>
+          <p className="about">
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quis,
+            saepe!
+          </p>
+          <ul className="f_link">
+            <li className="link">
+              <a href="">Home</a>
+            </li>
+            <li className="link">Features</li>
+            <li className="link">Platform</li>
+            <li className="link">Pricing</li>
+            <li className="link">Help</li>
+            <li className="link">Privacy</li>
+          </ul>
+        </div>
+        <div className="col-2">
+          <div className="">
+            <h4>Get now on:</h4>
+            <ul className="f_link device-lists">
+              <li className="link">
+                <a href="">
+                  <SiGooglechrome />
+                </a>
+              </li>
+              <li className="link">
+                <a href="">
+                  <SiVisualstudiocode />
+                </a>
+              </li>
+              <li className="link">
+                <a href="">
+                  <SiFigma />
+                </a>
+              </li>
+              <li className="link">
+                <a href="">
+                  <BsApple />
+                </a>
+              </li>
+              <li className="link">
+                <a href="">
+                  <IoLogoAndroid />
+                </a>
+              </li>
+              <li className="link">
+                <a href="">
+                  <BsWindows />
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div className="follow-us">
+            <h4 className="head">Follow us on:</h4>
+            <a href="Twitter" className="link">
+              Twitter
+            </a>
+            <a href="Twitter" className="link">
+              Instagram
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   );
