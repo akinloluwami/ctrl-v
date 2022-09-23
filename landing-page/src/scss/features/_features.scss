@@ -6,7 +6,7 @@
   justify-content: space-around;
   max-width: 900px;
   margin:50px auto;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 80vw));
+  grid-template-columns: repeat(auto-fit, minmax(250px, 0.8fr));
   // @media only screen and (max-width: 480px) {
   //   grid-template-columns: repeat(1, 1fr);
   h1 {
