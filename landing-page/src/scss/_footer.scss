@@ -7,6 +7,10 @@
   &_content{
     display:flex;
     justify-content: space-between;
+    @media screen and (max-width:500px){
+      display:grid;
+      gap:25px;
+    }
 
     .follow-us a{
           @include link();
