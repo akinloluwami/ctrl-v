@@ -1,10 +1,10 @@
 @import "../colors";
 
 .price {
-  padding: 20px;
+  padding: 25px;
   border-radius: 10px;
   margin: 20px;
-  width: 400px;
+  width: 350px;
   height: fit-content;
   border: 1px solid $accent;
   p {
@@ -50,9 +50,10 @@
     padding: 20px;
     display: flex;
     align-items: center;
+    font-family:inherit;
     justify-content: center;
     font-weight: 400;
-    font-size: 20px;
+    font-size: 18 px;
     border-radius: 10px;
     cursor: pointer;
   }

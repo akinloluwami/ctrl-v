@@ -1,5 +1,6 @@
 import React from "react";
 import { SiTwitter } from "react-icons/si";
+import { FaArrowDown } from "react-icons/fa";
 
 function Social() {
   return (
@@ -12,6 +13,10 @@ function Social() {
         Follow <a href="https://twitter.com/ctrlVapp">@ctrlVapp</a> for all the
         latest updates.
       </p>
+
+      <button className="scroll-down-btn-indicator">
+        <FaArrowDown />
+      </button>
     </div>
   );
 }

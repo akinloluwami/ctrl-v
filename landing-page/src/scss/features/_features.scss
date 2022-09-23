@@ -2,12 +2,13 @@
 
 .features {
   display: grid;
-  gap: 1px;
-  grid-template-columns: repeat(3, 1fr);
-  @media only screen and (max-width: 480px) {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  margin-top: 80px;
+  gap: 20px;
+  justify-content: space-around;
+  max-width: 900px;
+  margin:50px auto;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  // @media only screen and (max-width: 480px) {
+  //   grid-template-columns: repeat(1, 1fr);
   h1 {
     margin-block-start: 0;
     margin-block-end: 0;
