@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef } from "react";
 import "./scss/App.scss";
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -8,18 +8,34 @@ import Pricing from "./components/Pricing/Pricing";
 import Social from "./components/Social";
 import Footer from "./components/Footer";
 
+import "locomotive-scroll/dist/locomotive-scroll.min.css";
+import { LocomotiveScrollProvider } from "react-locomotive-scroll";
+
+const scrollOptions = {
+  smooth: true,
+  //  multiplier:.6,
+  inertial: 0.8,
+};
+
 function App() {
+  const ref = useRef(null);
   console.log(window.navigator.userAgentData);
   return (
-    <div className="App">
-      <Navbar />
-      <Hero />
-      <Features />
-      <Platforms />
-      <Pricing />
-      <Social />
-      <Footer />
-    </div>
+    <LocomotiveScrollProvider
+      watch={[]}
+      options={scrollOptions}
+      containerRef={ref}
+    >
+      <div className="App" data-scroll-container id="app" ref={ref}>
+        <Navbar />
+        <Hero />
+        <Features />
+        <Platforms />
+        <Pricing />
+        <Social />
+        <Footer />
+      </div>
+    </LocomotiveScrollProvider>
   );
 }
 
