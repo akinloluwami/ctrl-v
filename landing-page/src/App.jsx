@@ -15,8 +15,23 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const scrollOptions = {
   smooth: true,
-  //  multiplier:.6,
+  multiplier: 1.5,
   inertial: 0.8,
+  mobile: {
+    breakpoint: 0,
+    smooth: false,
+    inertial: 0.4,
+  },
+  smartphone: {
+    breakpoint: 0,
+    smooth: false,
+    inertial: 0.4,
+  },
+  tablet: {
+    breakpoint: 0,
+    smooth: true,
+    inertial: 0.5,
+  },
 };
 
 function App() {

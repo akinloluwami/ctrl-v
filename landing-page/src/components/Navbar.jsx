@@ -44,7 +44,6 @@ function Navbar() {
             />
           )}
         </div>
-        {/*
       </div>
       <div className={`navbar__mobile__menu ${open ? "open" : ""}`}>
         <ul className="navbar__mobile__menu__links">
@@ -77,7 +76,6 @@ function Navbar() {
           <a href="#">Login</a>
           <a href="#">Sign Up</a>
         </div>
-       */}
       </div>
     </div>
   );

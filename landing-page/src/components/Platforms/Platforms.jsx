@@ -88,10 +88,15 @@ function Platforms() {
       });
     }
   }, [elements]);
-  console.log(elements);
   return (
     <>
-      <h1 className="h1__text">Supported Platforms</h1>
+      <motion.h1
+        className="h1__text"
+        initial={{ y: -20, opacity: 0 }}
+        whileInView={{ y: 0, opacity: 1 }}
+      >
+        Supported Platforms
+      </motion.h1>
       <div className="platforms">
         <img src={logo} className="logo" />
         <motion.div className="circular">

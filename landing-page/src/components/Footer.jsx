@@ -116,11 +116,21 @@ function Footer() {
             <li className="link">
               <a href="">Home</a>
             </li>
-            <li className="link">Features</li>
-            <li className="link">Platform</li>
-            <li className="link">Pricing</li>
-            <li className="link">Help</li>
-            <li className="link">Privacy</li>
+            <li className="link">
+              <a href="">Features</a>
+            </li>
+            <li className="link">
+              <a href="">Platform</a>
+            </li>
+            <li className="link">
+              <a href="">Pricing</a>
+            </li>
+            <li className="link">
+              <a href="">Help</a>
+            </li>
+            <li className="link">
+              <a href="">Privacy</a>
+            </li>
           </ul>
         </div>
         <div className="col-2">
@@ -167,6 +177,16 @@ function Footer() {
             <a href="Twitter" className="link">
               Instagram
             </a>
+          </div>
+          <div className="footer__bottom">
+            <p className="footer__bottom__text">
+              Made with <span>(x² + y² – 1)³ = x² y³ </span> in{" "}
+              <img
+                src="https://flagcdn.com/ng.svg"
+                width="30"
+                alt="Nigeria"
+              ></img>
+            </p>
           </div>
         </div>
       </div>
