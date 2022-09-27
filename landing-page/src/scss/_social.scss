@@ -5,9 +5,10 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin: 200px 0;
+  padding: 200px 20px;
   &__icon {
     font-size: 60px;
+    color: $accent;
     cursor: pointer;
   }
   &__title {
@@ -23,9 +24,19 @@
     text-align: center;
     color: #c9c6c6;
     font-size: 18px;
-    width: 250px;
+    // max-width: 320px;
     a {
       color: #fff;
     }
+  }
+
+  .scroll-down-btn-indicator{
+    width:80px;
+    height:80px;
+    margin:20px auto;
+    border-radius:80px;
+    box-shadow:0 0 3px $accent;
+    background: $accent;
+    color:#fff;
   }
 }

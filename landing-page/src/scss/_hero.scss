@@ -1,28 +1,39 @@
 @import "./colors";
 
 .hero {
-  margin-top: 20px;
+  padding:5% 10px;
+  position:relative;
+
   h1 {
     text-align: center;
-    font-size: 6em;
-    width: 60%;
+    font-size: 5rem;
+    max-width:800px;
+      // padding:0 20px;
+
+    // width: 60%;
     margin: auto;
     font-weight: 600;
     span {
       color: $accent;
+      text-shadow: 0 0 5px $accent ,1px 1px 3px #fff;
     }
   }
   p {
     text-align: center;
-    width: 90%;
+    // width: 90%;
+    max-width:700px;
+    padding:10px;
     margin: auto;
-    font-size: 20px;
+    // font-size: 20px;
   }
   center {
-    margin-top: 40px;
+    // margin-top: 40px;
     a {
       background-color: $accent;
       font-size: 15px;
+      display:block;
+      width:150px;
+      margin:10px auto;
       color: #fff;
       text-decoration: none;
       padding: 10px 20px;
@@ -31,14 +42,11 @@
   }
 }
 
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 510px) {
   .hero {
     h1 {
-      font-size: 3.2em;
+      font-size: 3.2rem;
       width: 100%;
-    }
-    p {
-      margin-top: 20px;
     }
   }
 }
