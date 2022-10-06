@@ -10,6 +10,7 @@ import AuthNavigator from "./navigation/AuthNavigator";
 import BoardNavigator from "./navigation/BoardNavigator";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ToastProvider } from "react-native-toast-notifications";
+import * as Notifications from "expo-notifications";
 
 const Loading = () => {
   <View>
@@ -18,9 +19,21 @@ const Loading = () => {
 };
 const Root = createStackNavigator();
 
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
+
 export default function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [onboardingViewed, setOnboardingViewed] = useState(false);
+
+  useEffect(() => {
+    Notifications.then((token) => console.log(token));
+  }, []);
 
   const checkOnboarding = async () => {
     try {
