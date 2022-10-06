@@ -17,7 +17,7 @@ import TextDisplay from "../components/TextDisplay";
 import FileDisplay from "../components/FileDisplay";
 
 export default Home = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [deviceToken, setDeviceToken] = useState("");
   const [JWT, setJWT] = useState("");
   const [texts, setTexts] = useState([]);
@@ -47,6 +47,7 @@ export default Home = ({ navigation }) => {
     const response = await getTexts();
     if (response.status === 200) {
       setTexts(response.data.texts);
+      setIsLoading(false);
       setRefreshing(false);
     } else {
       console.log(response.data.error);
@@ -57,6 +58,7 @@ export default Home = ({ navigation }) => {
 
     if (response.status === 200) {
       setLinks(response.data.links);
+      setIsLoading(false);
       setRefreshing(false);
     } else {
       console.log(response.data.error);
@@ -65,10 +67,9 @@ export default Home = ({ navigation }) => {
 
   const getFilesData = async () => {
     const response = await getFiles();
-    console.log(response);
-
     if (response.status === 200) {
       setFiles(response.data.files);
+      setIsLoading(false);
       setRefreshing(false);
     } else {
       console.log(response.data.error);
@@ -84,7 +85,7 @@ export default Home = ({ navigation }) => {
     getLinksData();
     getTextsData();
     getFilesData();
-  }, []);
+  }, [links, texts, files]);
 
   return (
     <ScrollView
@@ -98,27 +99,31 @@ export default Home = ({ navigation }) => {
       }
     >
       {data.length < 1 && <Text style={styles.nodata}>No data</Text>}
-      {data
-        ?.sort(
-          (a, b) =>
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-        )
-        .map((d, i) => {
-          if (d.link) {
-            return <LinkDisplay key={i} link={d.link} />;
-          } else if (d.text) {
-            return <TextDisplay key={i} text={d.text} />;
-          } else {
-            return (
-              <FileDisplay
-                key={i}
-                fileName={d.fileName}
-                fileFormat={d.fileFormat}
-                fileSize={d.fileSize}
-              />
-            );
-          }
-        })}
+      {isLoading ? (
+        <Text>Loading...</Text>
+      ) : (
+        data
+          ?.sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          )
+          .map((d, i) => {
+            if (d.link) {
+              return <LinkDisplay key={i} link={d.link} />;
+            } else if (d.text) {
+              return <TextDisplay key={i} text={d.text} />;
+            } else {
+              return (
+                <FileDisplay
+                  key={i}
+                  fileName={d.fileName}
+                  fileFormat={d.fileFormat}
+                  fileSize={d.fileSize}
+                />
+              );
+            }
+          })
+      )}
     </ScrollView>
   );
 };
