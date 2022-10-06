@@ -15,6 +15,8 @@ import colors from "../../utils/colors";
 import logo from "../../assets/logo.png";
 import { AntDesign } from "@expo/vector-icons";
 import { login } from "../../api/auth/UserAuth";
+import axios from "axios";
+import { postData } from "../../utils/useAxios";
 
 export default Login = ({ navigation }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -66,6 +68,7 @@ export default Login = ({ navigation }) => {
         setIsLoading(false);
       }, 200);
     } else {
+      console.log(response);
       setError(true);
       setIsLoading(false);
       setErrorMessage(response.data.error || "Something went wrong");
