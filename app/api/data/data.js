@@ -1,13 +1,14 @@
 import RequestHandler from "../RequestHandler";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
+import { getData, postData } from "../../utils/useAxios";
 
 // const deviceToken = AsyncStorage.getItem("deviceToken");
 // const JWT = AsyncStorage.getItem("token");
 
 export const getTexts = async () => {
   try {
-    const result = await RequestHandler("/text", {
+    const result = await getData("/text", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
@@ -24,7 +25,7 @@ export const getTexts = async () => {
 
 export const getLinks = async () => {
   try {
-    const result = await RequestHandler("/link", {
+    const result = await getData("/link", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
@@ -41,7 +42,7 @@ export const getLinks = async () => {
 
 export const getFiles = async () => {
   try {
-    const result = await RequestHandler("/file", {
+    const result = await getData("/file", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${await AsyncStorage.getItem("token")}`,
@@ -58,7 +59,7 @@ export const getFiles = async () => {
 
 export const sendLink = async (JWT, deviceToken, data) => {
   try {
-    const response = await RequestHandler.post("/link", data, {
+    const response = await postData("/link", data, {
       headers: {
         Authorization: `Bearer ${JWT}`,
       },
@@ -74,7 +75,7 @@ export const sendLink = async (JWT, deviceToken, data) => {
 
 export const sendText = async (JWT, deviceToken, data) => {
   try {
-    const response = await RequestHandler.post("/text", data, {
+    const response = await postData("/text", data, {
       headers: {
         Authorization: `Bearer ${JWT}`,
       },
